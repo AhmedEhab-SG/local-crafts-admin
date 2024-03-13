@@ -1,4 +1,4 @@
-import login from "@/utils/auth";
+import login from "@/utils/api/auth";
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProviders from "next-auth/providers/credentials";
@@ -44,11 +44,13 @@ export const authOptions: AuthOptions = {
     },
   },
   pages: {
-    signIn: "/login",
+    signIn: "/auth/login",
+    newUser: '/'
   },
   debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
+    maxAge: 3 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

@@ -43,11 +43,11 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
   const logoutHandler = () => {
     signOut();
     profileHandler();
-    router.push("/");
+    router.push("/auth/login");
   };
   const loginhandler = () => {
     profileHandler();
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   const userOptions = userOptionsArr.map(({ title, Logo }, index) => (

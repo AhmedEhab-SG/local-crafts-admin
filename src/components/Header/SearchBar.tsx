@@ -1,11 +1,11 @@
 "use client";
 
-import Input from "../shared/Input";
+import InputStyled from "../shared/InputStyled";
 
 const SearchBar = () => {
   return (
     <div className="w-1/2 hidden lg:block">
-      <Input id="search" label="search" serach />
+      <InputStyled id="search" label="search" serach />
     </div>
   );
 };

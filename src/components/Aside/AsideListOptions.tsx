@@ -7,7 +7,7 @@ import DashboardSection from "./DashboardSection";
 const AsideListOptions = () => {
   const dashboardLists = [
     {
-      nav: "/",
+      nav: "/products",
       title: "Products",
     },
     {
@@ -39,7 +39,7 @@ const AsideListOptions = () => {
 
       <DashboardSection
         header="Products"
-        headerLink="/"
+        headerLink="/products"
         SvgLogo={<DashboardSvg />}
         lists={dashboardLists}
       />

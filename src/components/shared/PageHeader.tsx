@@ -27,7 +27,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, route }) => {
       dark:text-white
       "
       >
-        Sign In
+        {title}
       </h2>
       <nav>
         <ol

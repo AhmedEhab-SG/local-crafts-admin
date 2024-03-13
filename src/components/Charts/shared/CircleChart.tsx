@@ -9,16 +9,18 @@ import { ApexOptions } from "apexcharts";
 
 interface CircleChartProps {
   state: { series: any[] };
+  labels: string[];
+  colors: string[];
 }
 
-const CircleChart: FC<CircleChartProps> = ({ state }) => {
+const CircleChart: FC<CircleChartProps> = ({ state, labels, colors }) => {
   const options: ApexOptions = {
     chart: {
       fontFamily: "Satoshi, sans-serif",
       type: "donut",
     },
-    colors: ["#3C50E0", "#6577F3"],
-    labels: ["Products", "Services"],
+    colors,
+    labels,
     legend: {
       show: false,
       position: "bottom",

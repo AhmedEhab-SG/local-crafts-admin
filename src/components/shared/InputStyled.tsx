@@ -1,12 +1,6 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import {
-  FieldErrors,
-  FieldErrorsImpl,
-  FieldValues,
-  UseFormRegister,
-} from "react-hook-form";
 import { BiSearch } from "react-icons/bi";
 
 interface InputProps {
@@ -19,11 +13,14 @@ interface InputProps {
   vaild?: string;
   bgDark?: boolean;
   borders?: boolean;
+  value?: string;
+  small?: boolean;
   onclick?: () => void;
   errors?: boolean;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputReactForm: React.FC<InputProps> = ({
+const InputStyled: React.FC<InputProps> = ({
   id,
   label,
   type = "text",
@@ -33,6 +30,9 @@ const InputReactForm: React.FC<InputProps> = ({
   required,
   borders,
   errors,
+  onChange,
+  value,
+  small,
   onclick,
 }) => {
   return (
@@ -41,21 +41,24 @@ const InputReactForm: React.FC<InputProps> = ({
         <BiSearch
           size={24}
           onClick={onclick}
-          className="text-bodydark2 hover:text-graydark cursor-pointer transition absolute top-5 left-2"
+          className={`text-bodydark2 hover:text-graydark cursor-pointer transition absolute ${
+            small ? "top-1.5 left-1" : "top-5 left-2"
+          }`}
         />
       )}
 
       <input
         placeholder=" "
         disabled={disabled}
+        value={value}
         type={type}
+        onChange={onChange}
         id={id}
         name={id}
         className={`
         peer
         w-full
-        p-3
-        pt-6
+        ${small ? "p-1 pt-2 text-sm" : "p-3 pt-6"}
         font-light
         border-2
         rounded-md
@@ -88,15 +91,15 @@ const InputReactForm: React.FC<InputProps> = ({
         text-md
         duration-150
         transform
-        -translate-y-3
-        top-5
-        z-10
+        z-0
         origin-[0]
         pointer-events-none
         peer-placeholder-shown:scale-100
         peer-placeholder-shown:translate-y-0
         peer-focus:scale-75
-        peer-focus:-translate-y-4
+        ${small ? "-translate-y-2" : "-translate-y-3"}
+        ${small ? "top-2 text-xs" : "top-5 text-md"}
+        ${small ? " peer-focus:-translate-y-2" : " peer-focus:-translate-y-4"}
         ${serach ? "left-9" : "left-4"}
         ${errors ? "text-rose-500" : "text-zinc-400 dark:text-bodydark2"}`}
       >
@@ -106,4 +109,4 @@ const InputReactForm: React.FC<InputProps> = ({
   );
 };
 
-export default InputReactForm;
+export default InputStyled;

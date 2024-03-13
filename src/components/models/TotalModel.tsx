@@ -8,14 +8,14 @@ import TotalDetails from "../shared/TotalDetails";
 interface TotalModelProps {
   SvgIcon: ReactNode;
   number: number;
+  title: string;
 }
 
-const TotalModel: React.FC<TotalModelProps> = ({ SvgIcon, number }) => {
+const TotalModel: React.FC<TotalModelProps> = ({ SvgIcon, number, title }) => {
   return (
     <TotalContainer>
       <IconContainer SvgIcon={SvgIcon} />
-
-      <TotalDetails number={number} />
+      <TotalDetails title={title} number={number} />
     </TotalContainer>
   );
 };

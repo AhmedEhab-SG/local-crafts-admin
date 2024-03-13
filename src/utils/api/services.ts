@@ -1,8 +1,9 @@
 import axiosInstance from "./axiosInstance";
 
-const getPagenateServices = (params: any) => {
+const getPagenateServices = (queryParams: any) => {
+  const { page, limit } = queryParams;
   const url = `/services`;
-  return axiosInstance.get(url);
+  return axiosInstance.get(url, { params: { page, limit } });
 };
 const getServiceById = (params: any) => {
   const url = `/services`;

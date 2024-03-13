@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, use, useState } from "react";
+import { useState } from "react";
 import InputReactForm from "../shared/InputReactFrom";
 import {
   useForm,
@@ -10,10 +10,6 @@ import {
 } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import login from "@/utils/auth";
-import axios from "axios";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const InputForm = () => {
   const [isLoading, setIsLoading] = useState(false);

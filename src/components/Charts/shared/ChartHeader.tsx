@@ -3,10 +3,12 @@
 import { FC } from "react";
 
 interface ChartHeaderProps {
-  title?: string;
+  title?: string[];
 }
 
 const ChartHeader: FC<ChartHeaderProps> = ({ title }) => {
+  const text = title?.join(" & ");
+
   return (
     <div
       className="
@@ -22,7 +24,7 @@ const ChartHeader: FC<ChartHeaderProps> = ({ title }) => {
           text-black
           dark:text-white"
       >
-        {title}
+        {text}
       </h4>
     </div>
   );

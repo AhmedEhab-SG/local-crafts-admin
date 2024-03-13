@@ -1,8 +1,12 @@
 import axiosInstance from "./axiosInstance";
 
-const getPagenateUsers = (params: any) => {
+const getAllUsers = (token: any) => {
   const url = `/users`;
-  return axiosInstance.get(url);
+  return axiosInstance.get(url, {
+    headers: {
+      token,
+    },
+  });
 };
 const getusersById = (params: any) => {
   const url = `/users`;
@@ -24,4 +28,4 @@ const deleteUser = (params: any) => {
   return axiosInstance.get(url);
 };
 
-export { getPagenateUsers, getusersById, createUser, updateUser, deleteUser };
+export { getAllUsers, getusersById, createUser, updateUser, deleteUser };

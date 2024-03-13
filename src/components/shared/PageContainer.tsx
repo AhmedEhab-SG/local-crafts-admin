@@ -3,7 +3,7 @@
 import { FC, ReactNode } from "react";
 
 interface PageContainerProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const PageContainer: FC<PageContainerProps> = ({ children }) => {

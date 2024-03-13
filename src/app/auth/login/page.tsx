@@ -1,15 +1,14 @@
-"use client";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LoginSection from "@/components/LogIn";
 import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
-import useUser from "@/hooks/useUser";
-import { useRouter } from "next/navigation";
-const Login = () => {
-  const router = useRouter();
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 
-  const { user } = useUser();
+const Login = async () => {
+  const session = await getServerSession(authOptions);
 
-  if (user?._id) router.push("/");
+  if (session?.user._id) return redirect("/");
 
   return (
     <PageContainer>

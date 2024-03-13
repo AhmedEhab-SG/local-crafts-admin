@@ -4,26 +4,23 @@ import ChartContainer from "./shared/ChartContainer";
 import ChartHeader from "./shared/ChartHeader";
 import ChartFooter from "./shared/ChartFooter";
 import TableChart from "./shared/TableChart";
-import { useState } from "react";
+import { FC } from "react";
+import { getCreatedCountForWeek } from "@/utils/functions";
 
-const BarChart = () => {
-  const [state, setState] = useState({
-    series: [
-      {
-        name: "Sales",
-        data: [44, 55, 41, 67, 22, 43, 65],
-      },
-      {
-        name: "Revenue",
-        data: [13, 23, 20, 8, 13, 27, 15],
-      },
-    ],
-  });
+interface BarChartProps {
+  data?: any;
+}
+
+const BarChart: FC<BarChartProps> = ({ data }) => {
+  const series = data.map(({ name, arr }: { name: string; arr: any[] }) => ({
+    name: name,
+    data: getCreatedCountForWeek(arr),
+  }));
 
   return (
     <ChartContainer>
-      <ChartHeader title="Service & Products" />
-      <TableChart state={state} />
+      <ChartHeader title={series.map(({ name }: { name: string }) => name)} />
+      <TableChart state={{ series }} />
       <ChartFooter />
     </ChartContainer>
   );

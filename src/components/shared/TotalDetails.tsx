@@ -3,9 +3,10 @@
 import { FaArrowUp } from "react-icons/fa";
 interface TotalDetailsProps {
   number?: number;
+  title?: string;
 }
 
-const TotalDetails: React.FC<TotalDetailsProps> = ({ number }) => {
+const TotalDetails: React.FC<TotalDetailsProps> = ({ number, title }) => {
   return (
     <div
       className="
@@ -27,10 +28,10 @@ const TotalDetails: React.FC<TotalDetailsProps> = ({ number }) => {
         </h4>
         <p
           className="
-            text-sm
-            font-medium"
+            text-md
+            font-semibold"
         >
-          Total Product
+          Total {title}
         </p>
       </div>
       <div
