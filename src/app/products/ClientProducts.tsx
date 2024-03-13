@@ -9,6 +9,7 @@ interface ClientProductsProps {
 }
 
 const ClientProducts: FC<ClientProductsProps> = ({ products }) => {
+  
   const [column] = useProductsConfig();
 
   return <DataTable columns={column} data={products} />;

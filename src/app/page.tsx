@@ -5,6 +5,7 @@ import { getPagenateProducts } from "@/utils/api/products";
 import { getPagenateServices } from "@/utils/api/services";
 import { getAllUsers } from "@/utils/api/users";
 import { getAllOrders } from "@/utils/api/orders";
+import ClientOnly from "@/components/shared/ClientOnly";
 
 export default async function Home() {
   try {
@@ -27,7 +28,11 @@ export default async function Home() {
       user: session?.user,
       token,
     };
-    return <HomeClient data={data} />;
+    return (
+      <ClientOnly>
+        <HomeClient data={data} />
+      </ClientOnly>
+    );
   } catch (e) {
     return <div>Failed to load Dashboard</div>;
   }

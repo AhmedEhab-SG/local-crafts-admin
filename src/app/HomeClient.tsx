@@ -9,6 +9,7 @@ import DoughnutChart from "@/components/Charts/DoughnutChart";
 import TotalModel from "@/components/models/TotalModel";
 import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
+import { calculateRelativeChange } from "@/utils/functions";
 import { FC } from "react";
 
 interface HomeClientProps {
@@ -79,12 +80,13 @@ const HomeClient: FC<HomeClientProps> = ({ data }) => {
             xl:grid-cols-4
             2xl:gap-7.5"
       >
-        {totalData.map(({ title, number, SvgIcon }, index) => (
+        {totalData.map(({ title, number, SvgIcon, arr }, index) => (
           <TotalModel
             key={index}
             title={title}
             SvgIcon={SvgIcon}
             number={number}
+            arr={arr}
           />
         ))}
       </div>

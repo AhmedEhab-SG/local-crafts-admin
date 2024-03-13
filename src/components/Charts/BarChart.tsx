@@ -19,7 +19,10 @@ const BarChart: FC<BarChartProps> = ({ data }) => {
 
   return (
     <ChartContainer>
-      <ChartHeader title={series.map(({ name }: { name: string }) => name)} />
+      <ChartHeader
+        title={series.map(({ name }: { name: string }) => name)}
+        sub={"Weekly"}
+      />
       <TableChart state={{ series }} />
       <ChartFooter />
     </ChartContainer>

@@ -16,6 +16,8 @@ import {
 
 import { useRouter } from "next/navigation";
 
+import styles from "@/styles/config.module.scss";
+
 const useProductsConfig = () => {
   const router = useRouter();
 
@@ -110,7 +112,9 @@ const useProductsConfig = () => {
               <DropdownMenuItem className="cursor-pointer">
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer text-red hover:dark:bg-rose-900 hover:bg-rose-900 hover:text-white">
+              <DropdownMenuItem
+                className={`cursor-pointer text-meta-1 ${styles.deleteBtn}`}
+              >
                 Delete
               </DropdownMenuItem>
             </DropdownMenuContent>

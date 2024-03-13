@@ -51,4 +51,37 @@ const getCreatedCountForWeek = (arr: any[]): number[] => {
   return createdCountForWeek;
 };
 
-export { calculatePercentages, pascalCase, getCreatedCountForWeek };
+//----------------------------------------------
+
+const calculateRelativeChange = (data: any[]) => {
+  const totalInThisMonth = data.reduce(
+    (acc, curr) =>
+      new Date(curr.createdAt).getFullYear() === new Date().getFullYear() &&
+      new Date(curr.createdAt).getMonth() === new Date().getMonth()
+        ? (acc += 1)
+        : acc,
+    0
+  );
+
+  const totalInLastMonth = data.reduce(
+    (acc, curr) =>
+      new Date(curr.createdAt).getFullYear() === new Date().getFullYear() - 1 &&
+      new Date(curr.createdAt).getMonth() === new Date().getMonth() - 1
+        ? (acc += 1)
+        : acc,
+    0
+  );
+
+  const ratio = ((totalInThisMonth - totalInLastMonth) / data.length).toFixed(
+    1
+  );
+
+  return ratio;
+};
+
+export {
+  calculatePercentages,
+  pascalCase,
+  getCreatedCountForWeek,
+  calculateRelativeChange,
+};

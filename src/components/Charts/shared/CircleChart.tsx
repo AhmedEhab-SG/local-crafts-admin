@@ -31,6 +31,11 @@ const CircleChart: FC<CircleChartProps> = ({ state, labels, colors }) => {
         donut: {
           size: "65%",
           background: "transparent",
+
+          labels: {
+            show: true,
+            name: { show: true, color: "blue" },
+          },
         },
       },
     },

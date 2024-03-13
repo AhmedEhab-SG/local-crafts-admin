@@ -5,6 +5,7 @@ import { Product } from "@/types/products";
 import { getPagenateProducts } from "@/utils/api/products";
 import React from "react";
 import ClientProducts from "./ClientProducts";
+import ClientOnly from "@/components/shared/ClientOnly";
 
 const Products = async () => {
   const res = await getPagenateProducts({ page: 1, limit: 0 });
@@ -13,18 +14,20 @@ const Products = async () => {
   if (!products) return <div>Products not found</div>;
 
   return (
-    <PageContainer>
-      <PageHeader
-        title="Products"
-        route={[
-          { name: "Dashboard", path: "/" },
-          { name: "products", path: "/products" },
-        ]}
-      />
-      <TotalContainer>
-        <ClientProducts products={products} />
-      </TotalContainer>
-    </PageContainer>
+    <ClientOnly>
+      <PageContainer>
+        <PageHeader
+          title="Products"
+          route={[
+            { name: "Dashboard", path: "/" },
+            { name: "products", path: "/products" },
+          ]}
+        />
+        <TotalContainer>
+          <ClientProducts products={products} />
+        </TotalContainer>
+      </PageContainer>
+    </ClientOnly>
   );
 };
 

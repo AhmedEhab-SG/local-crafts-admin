@@ -1,12 +1,17 @@
 "use client";
 
-import { FaArrowUp } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 interface TotalDetailsProps {
   number?: number;
   title?: string;
+  relatieChange?: any;
 }
 
-const TotalDetails: React.FC<TotalDetailsProps> = ({ number, title }) => {
+const TotalDetails: React.FC<TotalDetailsProps> = ({
+  number,
+  title,
+  relatieChange,
+}) => {
   return (
     <div
       className="
@@ -35,17 +40,26 @@ const TotalDetails: React.FC<TotalDetailsProps> = ({ number, title }) => {
         </p>
       </div>
       <div
-        className="
+        className={`
             flex
             items-center
             gap-1
             text-sm
             font-medium
-            text-meta-3
-            "
+            ${relatieChange ? "text-meta-3" : "text-meta-1"}`}
       >
-        <p>0.25</p>
-        <FaArrowUp />
+        {relatieChange ? (
+          <>
+            <p>+{relatieChange}</p>
+            <FaArrowUp />
+          </>
+        ) : (
+          <>
+            <p>-{relatieChange}</p>
+            <FaArrowDown />
+          </>
+        )}
+        <span className="text-xs">monthly</span>
       </div>
     </div>
   );

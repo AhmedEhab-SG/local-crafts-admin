@@ -30,7 +30,7 @@ const DoughnutChart: FC<DoughnutChartProps> = ({ data }) => {
 
   return (
     <ChartContainer>
-      <ChartHeader title={names} />
+      <ChartHeader title={names}  sub="OverAll"/>
       <CircleChart
         state={{ series }}
         colors={arr.map(({ color }) => color)}
