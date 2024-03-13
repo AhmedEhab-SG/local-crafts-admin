@@ -4,7 +4,7 @@ import Link from "next/link";
 
 interface PageHeaderProps {
   title?: string;
-  route?: { name: string; path: string }[];
+  route?: { name: string; path?: string }[];
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, route }) => {
@@ -39,7 +39,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, route }) => {
           {route?.map(({ name, path }, i) => {
             return (
               <li key={name}>
-                <Link href={path}>
+                <Link href={path || "/"}>
                   <span
                     className={`
                         font-medium 

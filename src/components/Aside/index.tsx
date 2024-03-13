@@ -42,7 +42,8 @@ const Aside = () => {
             gap-3
             px-6 
             py-5.5 
-            lg:py-6.5"
+            lg:py-6.5
+            "
         >
           <AdminPanelLogo title="Admin Panel" styles=" text-bodydark1" />
           <button
@@ -66,7 +67,8 @@ const Aside = () => {
             py-4
             lg:mt-9
             lg:px-6
-            text-bodydark1"
+            text-bodydark1
+            h-full"
         >
           <h3
             className="
@@ -78,8 +80,10 @@ const Aside = () => {
           >
             MENU
           </h3>
-
           <AsideListOptions />
+          <footer className="mt-auto pt-8 self-center text-bodydark2">
+            <p>&#169; Local-Crafts-Team</p>
+          </footer>
         </div>
       </aside>
       {drawer && (

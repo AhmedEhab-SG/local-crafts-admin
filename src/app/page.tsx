@@ -6,6 +6,7 @@ import { getPagenateServices } from "@/utils/api/services";
 import { getAllUsers } from "@/utils/api/users";
 import { getAllOrders } from "@/utils/api/orders";
 import ClientOnly from "@/components/shared/ClientOnly";
+import Error from "./error";
 
 export default async function Home() {
   try {
@@ -34,6 +35,6 @@ export default async function Home() {
       </ClientOnly>
     );
   } catch (e) {
-    return <div>Failed to load Dashboard</div>;
+    return <Error />;
   }
 }

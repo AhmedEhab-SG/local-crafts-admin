@@ -2,6 +2,7 @@ import { getProductById } from "@/utils/api/products";
 import ClientProduct from "./ClientProduct";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Error from "@/app/error";
 interface IParams {
   productId?: string;
 }
@@ -17,7 +18,7 @@ const ProductId = async ({ params }: { params: IParams }) => {
 
     return <ClientProduct product={product.data} />;
   } catch (e) {
-    return <div>Product not found</div>;
+    return <Error />;
   }
 };
 
