@@ -51,6 +51,21 @@ const getCreatedCountForWeek = (arr: any[]): number[] => {
   return createdCountForWeek;
 };
 
+//--------------------------------------------
+
+const getDaysOfWeek = (): string[] => {
+  const daysOfWeek: string[] = [];
+
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() + 1 - i);
+    const day = date.toLocaleString("default", { weekday: "long" });
+    daysOfWeek.push(day);
+  }
+
+  return daysOfWeek;
+};
+
 //----------------------------------------------
 
 const calculateRelativeChange = (data: any[]) => {
@@ -84,4 +99,5 @@ export {
   pascalCase,
   getCreatedCountForWeek,
   calculateRelativeChange,
+  getDaysOfWeek,
 };
