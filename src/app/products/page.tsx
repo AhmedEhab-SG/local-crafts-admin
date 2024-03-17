@@ -2,7 +2,7 @@ import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
 import TotalContainer from "@/components/shared/TotalContainer";
 import { Product } from "@/types/products";
-import { getPagenateProducts } from "@/utils/api/products";
+import { getPagenateProducts } from "@/app/actions/api/products";
 import React from "react";
 import ClientProducts from "./ClientProducts";
 import ClientOnly from "@/components/shared/ClientOnly";
@@ -22,7 +22,7 @@ const Products = async () => {
             title="Products"
             route={[
               { name: "Dashboard", path: "/" },
-              { name: "products", path: "/products" },
+              { name: "Products", path: "/products" },
             ]}
           />
           <TotalContainer>

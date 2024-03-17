@@ -13,6 +13,11 @@ interface ButtonStyledProps {
   title?: string;
   href?: string;
   target?: string;
+  transparent?: boolean;
+  primary?: boolean;
+  danger?: boolean;
+  warning?: boolean;
+  small?: boolean;
 }
 
 const ButtonStyled: FC<ButtonStyledProps> = ({
@@ -23,7 +28,12 @@ const ButtonStyled: FC<ButtonStyledProps> = ({
   disabled,
   href,
   title,
+  transparent,
+  primary,
+  warning,
+  danger,
   target,
+  small,
   elemType = "button",
 }) => {
   return (
@@ -39,12 +49,18 @@ const ButtonStyled: FC<ButtonStyledProps> = ({
             items-center
             gap-2
             rounded-md
-            bg-primary
-            px-6
-            py-3
+           ${primary && "bg-primary border border-primary"}
+            ${danger && "bg-danger border border-danger"}
+            ${warning && "bg-warning border border-warning"} 
+            ${
+              transparent &&
+              "!bg-transparent border !text-black dark:!text-white"
+            }
             font-medium
+            ${small ? "text-sm px-4 py-2" : "text-base px-6 py-3"}
             text-white
-            hover:bg-opacity-90 
+           ${!disabled && "hover:bg-opacity-90  hover:border-opacity-70"}
+            ${disabled && "cursor-not-allowed opacity-70 "}
       ${className}`}
         >
           {SvgIcon}

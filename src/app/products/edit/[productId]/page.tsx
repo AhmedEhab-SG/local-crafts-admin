@@ -1,7 +1,4 @@
-interface IParams {
-  productId?: string;
-}
-const EditProduct = async ({ params }: { params: IParams }) => {
+const EditProduct = () => {
   return <div>page</div>;
 };
 

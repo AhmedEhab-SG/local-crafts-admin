@@ -17,9 +17,15 @@ import {
 import { useRouter } from "next/navigation";
 
 import styles from "@/styles/config.module.scss";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { onOpen, setTarget } from "@/store/slice/delete";
 
 const useProductsConfig = () => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   const sort = ({ column }: any, name: string) => {
     {
@@ -87,38 +93,53 @@ const useProductsConfig = () => {
         const product = row.original;
 
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="dark:bg-slate-700 h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <hr />
-              <DropdownMenuSeparator />
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="dark:bg-slate-700 h-8 w-8 p-0"
+                >
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <hr />
+                <DropdownMenuSeparator />
 
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => {
-                  const id = product.id;
-                  router.push(`/products/${id}`);
-                }}
-              >
-                View
-              </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => {
+                    const id = product.id;
+                    router.push(`/products/${id}`);
+                  }}
+                >
+                  View
+                </DropdownMenuItem>
 
-              <DropdownMenuItem className="cursor-pointer">
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className={`cursor-pointer text-meta-1 ${styles.deleteBtn}`}
-              >
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => {
+                    const id = product.id;
+                    router.push(`/products/edit/${id}`);
+                  }}
+                >
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={`cursor-pointer text-meta-1 ${styles.deleteBtn}`}
+                  onClick={() => {
+                    dispatch(setTarget({ id: product.id, name: product.name }));
+                    dispatch(onOpen());
+                  }}
+                >
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
         );
       },
     },

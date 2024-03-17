@@ -1,11 +1,11 @@
 import axiosInstance from "./axiosInstance";
 
-const getAllUsers = (token: any) => {
+const getAllUsers = (token: any, queryParams: any) => {
+  const { page, limit } = queryParams;
   const url = `/users`;
   return axiosInstance.get(url, {
-    headers: {
-      token,
-    },
+    headers: { token },
+    params: { page, limit },
   });
 };
 const getusersById = (params: any) => {

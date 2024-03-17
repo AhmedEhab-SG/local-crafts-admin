@@ -20,9 +20,9 @@ const updateProduct = (body: any, token: string) => {
   return axiosInstance.patch(url, body, { headers: { token } });
 };
 
-const deleteProduct = (productId: any) => {
+const deleteProduct = (productId: any, token: any) => {
   const url = `/products/${productId}`;
-  return axiosInstance.delete(url);
+  return axiosInstance.delete(url, { headers: { token } });
 };
 
 export {

@@ -4,6 +4,7 @@ import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import ClientOnly from "@/components/shared/ClientOnly";
 
 const Login = async () => {
   const session = await getServerSession(authOptions);

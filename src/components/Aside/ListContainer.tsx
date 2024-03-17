@@ -9,7 +9,7 @@ interface ListContainerProps {
   link: string;
   children?: React.ReactNode;
   onClick?: () => void;
-  showLists?: boolean;
+  dropDwon?: boolean;
 }
 
 const ListContainer: React.FC<ListContainerProps> = ({
@@ -17,7 +17,7 @@ const ListContainer: React.FC<ListContainerProps> = ({
   title,
   children,
   link,
-  showLists,
+  dropDwon,
   onClick,
 }) => {
   return (
@@ -39,7 +39,9 @@ const ListContainer: React.FC<ListContainerProps> = ({
           <div className="fill-current text-bodydark1">{icon}</div>
           <p className="font-semibold">{title}</p>
         </Link>
-        <MdKeyboardArrowDown className="cursor-pointer" onClick={onClick} />
+        {dropDwon && (
+          <MdKeyboardArrowDown className="cursor-pointer" onClick={onClick} />
+        )}
       </div>
 
       {children}

@@ -1,4 +1,4 @@
-import login from "@/utils/api/auth";
+import login from "@/app/actions/api/auth";
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProviders from "next-auth/providers/credentials";
@@ -8,8 +8,8 @@ export const authOptions: AuthOptions = {
     CredentialsProviders({
       name: "credentials",
       credentials: {
-        email: { label: "email", type: "text" },
-        password: { label: "password ", type: "password" },
+        email: { label: "email", type: "email" },
+        password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
         try {
@@ -42,10 +42,12 @@ export const authOptions: AuthOptions = {
       session.user = token as any;
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
   },
   pages: {
     signIn: "/auth/login",
-    newUser: '/'
   },
   debug: process.env.NODE_ENV === "development",
   session: {

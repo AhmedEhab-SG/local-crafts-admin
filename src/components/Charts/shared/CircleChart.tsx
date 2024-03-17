@@ -55,7 +55,7 @@ const CircleChart: FC<CircleChartProps> = ({ state, labels, colors }) => {
         breakpoint: 640,
         options: {
           chart: {
-            width: 200,
+            width: 350,
           },
         },
       },

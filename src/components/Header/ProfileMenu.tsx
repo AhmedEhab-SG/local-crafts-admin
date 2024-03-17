@@ -89,7 +89,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
         dark:bg-boxdark
         ${openProfile ? "block" : "hidden"}`}
     >
-      {user?._id && (
+      {/* {user?._id && (
         <ul
           className="
           flex
@@ -103,7 +103,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
         >
           {userOptions}
         </ul>
-      )}
+      )} */}
 
       {user?._id ? (
         <BtnHeader

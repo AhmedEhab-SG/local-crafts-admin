@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import AsideListOptions from "./AsideListOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -89,7 +88,7 @@ const Aside = () => {
       {drawer && (
         <div
           onClick={() => dispatch(toggleDrawer())}
-          className="opacity-[0.5] bg-black dark:bg-slate-500 h-screen w-screen absolute z-10"
+          className="opacity-[0.5] bg-neutral-800/70 h-screen w-screen absolute z-10"
         ></div>
       )}
     </>

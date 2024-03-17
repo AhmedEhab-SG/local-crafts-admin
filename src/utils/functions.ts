@@ -5,7 +5,7 @@ const calculatePercentages = (array: number[]) => {
 
 //----------------------------------------------
 
-const pascalCase = (fullString: string, msg?: string) => {
+const pascalCase = (fullString: string, msg?: string): string => {
   if (typeof fullString !== "string") {
     throw new Error(`please enter a vaild ${msg} !`);
   }

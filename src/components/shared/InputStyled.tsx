@@ -18,6 +18,7 @@ interface InputProps {
   onclick?: () => void;
   errors?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 const InputStyled: React.FC<InputProps> = ({
@@ -34,9 +35,10 @@ const InputStyled: React.FC<InputProps> = ({
   value,
   small,
   onclick,
+  className,
 }) => {
   return (
-    <div className="w-full relative">
+    <div className={`w-full relative ${className}`}>
       {serach && (
         <BiSearch
           size={24}

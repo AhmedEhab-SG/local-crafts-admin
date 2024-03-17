@@ -33,17 +33,18 @@ const Navbar = () => {
         2xl:px-11"
     >
       <ToggleAside />
-      <SearchBar />
+      {user && <SearchBar />}
       <div
         className="
           flex 
+          w-full
           items-center 
-          justify-center
+          justify-end
           gap-4"
       >
         <ModeSwitcher />
 
-        <HeaderUiIcons title={"Notification"} SvgIcon={<BellSvg />} />
+        {/* <HeaderUiIcons title={"Notification"} SvgIcon={<BellSvg />} /> */}
 
         <Profile user={user} profileHandler={profileHandler} />
       </div>

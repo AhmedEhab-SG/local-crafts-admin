@@ -1,0 +1,52 @@
+.hideThumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.1%;
+  width: 0.1%;
+  opacity: 1;
+}
+
+.hideThumb::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.1%;
+  width: 0.1%;
+  opacity: 1;
+}
+
+.hideThumb::-ms-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.1%;
+  width: 0.1%;
+  opacity: 1;
+}
+
+.emptySvg {
+  position: absolute;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.xs {
+  width: 0.8rem;
+}
+
+.sm {
+  width: 1rem;
+}
+
+.md {
+  width: 1.5rem;
+}
+
+.lg {
+  width: 2rem;
+}
+
+.xl {
+  width: 3rem;
+}

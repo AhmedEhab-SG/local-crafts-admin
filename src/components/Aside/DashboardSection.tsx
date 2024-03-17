@@ -10,6 +10,7 @@ interface DashboardSectionProps {
   lists?: { nav: string; title: string }[];
   headerLink: string;
   show?: boolean;
+  dropDwon?: boolean;
 }
 
 const DashboardSection: FC<DashboardSectionProps> = ({
@@ -18,6 +19,7 @@ const DashboardSection: FC<DashboardSectionProps> = ({
   lists,
   headerLink,
   show,
+  dropDwon,
 }) => {
   const [showLists, setShowLists] = useState(show ? true : false);
 
@@ -31,8 +33,10 @@ const DashboardSection: FC<DashboardSectionProps> = ({
       icon={SvgLogo}
       title={header}
       link={headerLink}
+      dropDwon={dropDwon}
     >
-      {showLists &&
+      {dropDwon &&
+        showLists &&
         lists?.map(({ nav, title }, index) => (
           <ListDetails key={index} nav={nav} title={title} />
         ))}

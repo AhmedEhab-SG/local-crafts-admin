@@ -1,5 +1,6 @@
 export type Product = {
-  id: string;
+  _id?: string;
+  id?: string;
   approved: boolean;
   avgRating: number;
   category: { main: string; sub: string };

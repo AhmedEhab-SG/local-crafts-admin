@@ -3,7 +3,6 @@
 import { FC } from "react";
 import { TableData } from "./Table";
 
-
 interface DataTableProps {
   columns: any;
   data: any[];
