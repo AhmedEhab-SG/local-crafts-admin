@@ -9,6 +9,9 @@ import {
   FieldErrorsImpl,
 } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import ButtonStyled from "../shared/ButtonStyled";
+import { ClipLoader } from "react-spinners";
+import LoginSvg from "@/assets/svg/Login.svg";
 import { useRouter } from "next/navigation";
 
 const InputForm = () => {
@@ -37,13 +40,12 @@ const InputForm = () => {
 
       if (!res?.ok) {
         setIsLoading(false);
-        return setError(() => "invaild credentials");
+        setError(() => "invaild credentials");
+        return;
       }
-
-      setIsLoading(false);
       router.push("/");
+      setIsLoading(false);
     } catch (err) {
-      console.log(err);
       setIsLoading(false);
     }
   };
@@ -124,23 +126,17 @@ const InputForm = () => {
           type="password"
         />
       </div>
-      <button
+
+      <ButtonStyled
+        primary
+        className="w-full mt-4"
+        title={isLoading ? "Checking..." : "Sign In"}
+        type="submit"
+        SvgIcon={
+          isLoading ? <ClipLoader size={20} color="#fff" /> : <LoginSvg />
+        }
         disabled={isLoading}
-        className="
-          w-full
-          rounded-lg
-          border
-          border-primary
-          bg-primary
-          p-4
-          mt-4
-          text-white
-          transition
-          hover:bg-opacity-90
-          "
-      >
-        Sign In
-      </button>
+      />
       {error && (
         <p className="text-rose-500 w-full text-center mt-5 font-semibold p-2">
           {error}

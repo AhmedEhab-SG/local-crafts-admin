@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { onClose } from "@/store/slice/delete";
+import toast from "react-hot-toast";
 
 interface DeleteModelProps {
   deleteFunction: (id?: string, token?: string) => any;
@@ -44,11 +45,11 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      const res = await deleteFunction(id, user?.token);
+      await deleteFunction(id, user?.token);
       router.refresh();
-      console.log(res.data);
+      toast.success("Deleting Success.");
     } catch (error) {
-      console.log(error);
+      toast.error("Deleting failed.");
     }
     handleClose();
   }, [handleClose, deleteFunction, id, user, router]);

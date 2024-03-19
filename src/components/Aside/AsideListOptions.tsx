@@ -50,29 +50,29 @@ const AsideListOptions = () => {
       />
       <DashboardSection
         header="Services"
-        headerLink="/"
+        headerLink="/services"
         SvgLogo={<MdDesignServices />}
       />
       <DashboardSection
         header="Orders"
-        headerLink="/"
+        headerLink="/orders"
         SvgLogo={<OrdersSvg />}
       />
       <DashboardSection
         header="Users"
-        headerLink="/"
+        headerLink="/users"
         SvgLogo={<Users2Icon />}
       />
       <DashboardSection
-        header="Category"
-        headerLink="/"
+        header="Categories"
+        headerLink="/categories"
         SvgLogo={<BiCategoryAlt />}
         lists={category}
         dropDwon
       />
       <DashboardSection
         header="Locations"
-        headerLink="/"
+        headerLink="/locations"
         SvgLogo={<LocateIcon />}
         lists={locations}
         dropDwon

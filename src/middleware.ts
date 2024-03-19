@@ -1,10 +1,17 @@
-export { default } from "next-auth/middleware";
+import { withAuth } from "next-auth/middleware";
+
+export default withAuth(function middleware(req: Request) {}, {
+  callbacks: {
+    authorized: async ({ token }) => (await token?.role) === "admin",
+  },
+});
 
 export const config = {
   matcher: [
     "/",
     "/products",
     "/products/:productId*",
-    "/products/edit/:productId*",
+    "/services",
+    "/services/:serviceId*",
   ],
 };

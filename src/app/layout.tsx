@@ -6,6 +6,7 @@ import Aside from "@/components/Aside";
 import Header from "@/components/Header";
 import HooksProvider from "@/providers/HooksProvider";
 import AuthProvider from "@/providers/AuthProvider";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 export const metadata: Metadata = {
   title: "Admin Panel",
@@ -23,6 +24,7 @@ export default function RootLayout({
         <StoreProvider>
           <HooksProvider>
             <AuthProvider>
+              <ToasterProvider />
               <Layout
                 styles={
                   "flex h-screen bg-bodydark1 dark:bg-boxdark-2 dark:text-bodydark"

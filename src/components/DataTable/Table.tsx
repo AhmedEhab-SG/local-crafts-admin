@@ -77,24 +77,9 @@ export function TableData<TData, TValue>({
   return (
     <>
       <div className="flex items-center justify-between">
-        <div className="flex items-center dark: py-4">
-          <InputStyled
-            id="table"
-            label="Filter By Name"
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
-            }
-            borders
-            bgDark
-            serach
-            small
-          />
-        </div>
-
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="ml-auto mb-2">
               <div className="flex items-center justify-center gap-3">
                 <FaFilter />
                 Filter
@@ -110,7 +95,7 @@ export function TableData<TData, TValue>({
                   <DropdownMenuCheckboxItem
                     key={column.id}
                     checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
+                    onCheckedChange={(value): any =>
                       column.toggleVisibility(!!value)
                     }
                   >
@@ -135,19 +120,44 @@ export function TableData<TData, TValue>({
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      <div className="flex flex-col">
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+
+                        {/* searh */}
+                        {header.id != "actions" && (
+                          <div className="flex items-center dark: py-4">
+                            <InputStyled
+                              id={header.id}
+                              label={"filter"}
+                              onChange={(event) =>
+                                table.getColumn(header.id)?.setFilterValue(
+                                  header.id === "price"
+                                    ? new Intl.NumberFormat("en-EG", {
+                                        style: "currency",
+                                        currency: "EGP",
+                                      }).format(+event.target.value)
+                                    : event.target.value
+                                )
+                              }
+                              borders
+                              bgDark
+                              small
+                            />
+                          </div>
+                        )}
+                      </div>
                     </TableHead>
                   );
                 })}
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="text-center">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, i) => (
                 <TableRow

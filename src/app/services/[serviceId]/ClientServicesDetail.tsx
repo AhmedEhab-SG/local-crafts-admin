@@ -4,29 +4,29 @@ import DetailModel from "@/components/models/DetailModel";
 import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
 import TotalContainer from "@/components/shared/TotalContainer";
-import { Product } from "@/types/products";
+import { IService } from "@/types/service.type";
 import { FC } from "react";
 
-interface ClientProductProps {
-  product: Product;
+interface ClientServiceProps {
+  service: IService;
 }
 
-const ClientProduct: FC<ClientProductProps> = ({ product }) => {
+const ClientServicesDetail: FC<ClientServiceProps> = ({ service }) => {
   return (
     <PageContainer>
       <PageHeader
         title={"Details"}
         route={[
           { name: "Dashboard", path: "/" },
-          { name: "Products", path: "/products" },
-          { name: product.name, path: `/products/${product._id}` },
+          { name: "Services", path: "/services" },
+          { name: service.name, path: `/services/${service._id}` },
         ]}
       />
       <TotalContainer>
-        <DetailModel data={product} />
+        <DetailModel data={service} />
       </TotalContainer>
     </PageContainer>
   );
 };
 
-export default ClientProduct;
+export default ClientServicesDetail;

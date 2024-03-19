@@ -1,4 +1,4 @@
-import login from "@/app/actions/api/auth";
+import login from "@/app/api/auth";
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProviders from "next-auth/providers/credentials";
@@ -43,7 +43,9 @@ export const authOptions: AuthOptions = {
       return session;
     },
     async redirect({ url, baseUrl }) {
-      return baseUrl;
+      return url.startsWith(baseUrl)
+        ? Promise.resolve(baseUrl)
+        : Promise.resolve(url);
     },
   },
   pages: {
@@ -57,6 +59,4 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+export default NextAuth(authOptions);

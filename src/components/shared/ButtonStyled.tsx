@@ -47,6 +47,7 @@ const ButtonStyled: FC<ButtonStyledProps> = ({
             mt-7 
             inline-flex 
             items-center
+            justify-center
             gap-2
             rounded-md
            ${primary && "bg-primary border border-primary"}

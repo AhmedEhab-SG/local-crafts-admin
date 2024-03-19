@@ -1,6 +1,6 @@
 "use client";
 
-import { IProduct } from "@/types/product.type";
+import { IService } from "@/types/service.type";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 
@@ -19,9 +19,9 @@ import styles from "@/styles/config.module.scss";
 import { useDispatch } from "react-redux";
 import { onOpen, setTarget } from "@/store/slice/delete";
 import ChangeStatus from "@/components/shared/ChangeStatus";
-import { updateProduct } from "@/app/api/products";
+import { updateService } from "@/app/api/services";
 
-const useProductsConfig = () => {
+const useServicesConfig = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const useProductsConfig = () => {
     }
   };
 
-  const colums: ColumnDef<IProduct>[] = [
+  const colums: ColumnDef<IService>[] = [
     {
       header: (props) => sort(props, "ID"),
       accessorKey: "id",
@@ -85,7 +85,7 @@ const useProductsConfig = () => {
 
         return (
           <ChangeStatus
-            requestFunction={updateProduct}
+            requestFunction={updateService}
             id={row.getValue("id")}
             status={value as boolean}
           />
@@ -96,7 +96,7 @@ const useProductsConfig = () => {
       header: () => <p className="text-bold px-2">Actions</p>,
       id: "actions",
       cell: ({ row }) => {
-        const product = row.original;
+        const service = row.original;
 
         return (
           <>
@@ -118,8 +118,8 @@ const useProductsConfig = () => {
                 <DropdownMenuItem
                   className="cursor-pointer"
                   onClick={() => {
-                    const id = product.id;
-                    router.push(`/products/${id}`);
+                    const id = service.id;
+                    router.push(`/services/${id}`);
                   }}
                 >
                   View
@@ -128,7 +128,7 @@ const useProductsConfig = () => {
                 <DropdownMenuItem
                   className={`cursor-pointer text-meta-1 ${styles.deleteBtn}`}
                   onClick={() => {
-                    dispatch(setTarget({ id: product.id, name: product.name }));
+                    dispatch(setTarget({ id: service.id, name: service.name }));
                     dispatch(onOpen());
                   }}
                 >
@@ -145,4 +145,4 @@ const useProductsConfig = () => {
   return [colums];
 };
 
-export default useProductsConfig;
+export default useServicesConfig;

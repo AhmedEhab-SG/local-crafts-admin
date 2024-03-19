@@ -1,30 +1,30 @@
 import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
 import TotalContainer from "@/components/shared/TotalContainer";
-import { IProduct } from "@/types/product.type";
-import { getPagenateProducts } from "@/app/api/products";
 import React from "react";
-import ClientProducts from "./ClientProducts";
+import ClientServices from "./ClientServices";
 import Error from "../error";
+import { getPagenateServices } from "../api/services";
+import { IService } from "@/types/service.type";
 
-const Products = async () => {
+const Services = async () => {
   try {
-    const res = await getPagenateProducts({ page: 1, limit: 0 });
-    const products: IProduct[] = res.data.data;
+    const res = await getPagenateServices({ page: 1, limit: 0 });
+    const services: IService[] = res.data.data;
 
-    if (!products) return <div>Products not found</div>;
+    if (!services) return <div>Services not found</div>;
 
     return (
       <PageContainer>
         <PageHeader
-          title="Products"
+          title="Services"
           route={[
             { name: "Dashboard", path: "/" },
-            { name: "Products", path: "/products" },
+            { name: "Services", path: "/services" },
           ]}
         />
         <TotalContainer>
-          <ClientProducts products={products} />
+          <ClientServices services={services} />
         </TotalContainer>
       </PageContainer>
     );
@@ -33,5 +33,5 @@ const Products = async () => {
   }
 };
 
-export default Products;
+export default Services;
 export const dynamic = "force-dynamic";

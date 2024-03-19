@@ -94,10 +94,31 @@ const calculateRelativeChange = (data: any[]) => {
   return ratio;
 };
 
+//----------------------------------------------
+
+const safeImgDisplay = (
+  options: {
+    photoUrl?: string;
+    dark?: boolean;
+    darkImg?: string;
+    lightImg?: string;
+  } = {}
+): string => {
+  const { photoUrl, dark, darkImg, lightImg } = options;
+  if (photoUrl?.includes("https://") || photoUrl?.includes("http://"))
+    return photoUrl;
+  if (typeof dark === "boolean")
+    return dark
+      ? darkImg || "https://i.ibb.co/2P7YK6F/no-image.jpg"
+      : lightImg || "https://i.ibb.co/2P7YK6F/no-image.jpg";
+  return "https://i.ibb.co/2P7YK6F/no-image.jpg";
+};
+
 export {
   calculatePercentages,
   pascalCase,
   getCreatedCountForWeek,
   calculateRelativeChange,
   getDaysOfWeek,
+  safeImgDisplay,
 };

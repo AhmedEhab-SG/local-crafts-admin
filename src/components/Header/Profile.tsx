@@ -1,19 +1,16 @@
 "use client";
 
-import { User } from "@/types/user.type";
+import { IUser } from "@/types/user.type";
+import { safeImgDisplay } from "@/utils/functions";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 interface ProfileProps {
   profileHandler: () => void;
-  user?: User;
+  user?: IUser;
 }
 
 const Profile: React.FC<ProfileProps> = ({ profileHandler, user }) => {
-  const safeUserImg = ({ dark }: { dark: boolean }) => {
-    if (user?.photo.includes("https://")) return user.photo;
-    return dark ? "/images/common/dark-user.png" : "/images/common/user.png";
-  };
   return (
     <button
       className="
@@ -54,14 +51,24 @@ const Profile: React.FC<ProfileProps> = ({ profileHandler, user }) => {
           className="hidden dark:block"
           width={48}
           height={48}
-          src={safeUserImg({ dark: true })}
+          src={safeImgDisplay({
+            photoUrl: user?.photo,
+            dark: true,
+            darkImg: "/images/common/dark-user.png",
+            lightImg: "/images/common/user.png",
+          })}
           alt="user"
         />
         <Image
           className="block dark:hidden"
           width={48}
           height={48}
-          src={safeUserImg({ dark: false })}
+          src={safeImgDisplay({
+            photoUrl: user?.photo,
+            dark: false,
+            darkImg: "/images/common/dark-user.png",
+            lightImg: "/images/common/user.png",
+          })}
           alt="user"
         />
       </div>

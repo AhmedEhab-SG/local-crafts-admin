@@ -1,6 +1,8 @@
 "use client";
 
+import { closeDrawer } from "@/store/slice/settings";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 
 interface ListDetailsProps {
   title: string;
@@ -8,6 +10,7 @@ interface ListDetailsProps {
 }
 
 const ListDetails: React.FC<ListDetailsProps> = ({ title, nav }) => {
+  const dispatch = useDispatch();
   return (
     <ul
       className={`
@@ -24,6 +27,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({ title, nav }) => {
       <li>
         <Link
           href={nav}
+          onClick={() => dispatch(closeDrawer())}
           className="group px-4 font-medium text-bodydark2 duration-300 transition-all ease-in-out hover:text-white"
         >
           {title}

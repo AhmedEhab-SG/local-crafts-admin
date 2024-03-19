@@ -15,8 +15,8 @@ const createProduct = (body: any, token: string) => {
   return axiosInstance.post(url, body, { headers: { token } });
 };
 
-const updateProduct = (body: any, token: string) => {
-  const url = `/products`;
+const updateProduct = (_id: string, body: any, token?: string) => {
+  const url = `/products/${_id}`;
   return axiosInstance.patch(url, body, { headers: { token } });
 };
 

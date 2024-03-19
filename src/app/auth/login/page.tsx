@@ -1,10 +1,9 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import LoginSection from "@/components/LogIn";
 import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import ClientOnly from "@/components/shared/ClientOnly";
 
 const Login = async () => {
   const session = await getServerSession(authOptions);
@@ -26,3 +25,4 @@ const Login = async () => {
 };
 
 export default Login;
+export const dynamic = "force-dynamic";

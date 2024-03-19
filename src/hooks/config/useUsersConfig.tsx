@@ -1,6 +1,6 @@
 "use client";
 
-import { IProduct } from "@/types/product.type";
+import { IUser } from "@/types/user.type";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 
@@ -19,9 +19,9 @@ import styles from "@/styles/config.module.scss";
 import { useDispatch } from "react-redux";
 import { onOpen, setTarget } from "@/store/slice/delete";
 import ChangeStatus from "@/components/shared/ChangeStatus";
-import { updateProduct } from "@/app/api/products";
+import { updateUser } from "@/app/api/users";
 
-const useProductsConfig = () => {
+const useUsersConfig = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -41,62 +41,37 @@ const useProductsConfig = () => {
     }
   };
 
-  const colums: ColumnDef<IProduct>[] = [
+  const colums: ColumnDef<IUser>[] = [
     {
       header: (props) => sort(props, "ID"),
       accessorKey: "id",
+    },
+    {
+      header: (props) => sort(props, "Email"),
+      accessorKey: "email",
     },
     {
       header: (props) => sort(props, "Name"),
       accessorKey: "name",
     },
     {
-      header: (props) => sort(props, "Price"),
-      accessorKey: "price",
-      cell: ({ row }) =>
-        new Intl.NumberFormat("en-EG", {
-          style: "currency",
-          currency: "EGP",
-        }).format(row.getValue("price")),
+      header: (props) => sort(props, "Governorate"),
+      accessorKey: "address.gov",
     },
     {
-      header: (props) => sort(props, "Main Category"),
-      accessorKey: "category.main",
+      header: (props) => sort(props, "City"),
+      accessorKey: "address.city",
     },
-    {
-      header: (props) => sort(props, "Vendor Name"),
-      accessorKey: "vendor.name",
-    },
-    {
-      header: (props) => sort(props, "Total Orders"),
-      accessorKey: "totalOrders",
-    },
-    {
-      header: (props) => sort(props, "Created At"),
-      accessorKey: "createdAt",
-      cell: ({ row }) =>
-        new Date(row.getValue("createdAt")).toLocaleDateString(),
-    },
-    {
-      header: (props) => sort(props, "Approvals"),
-      accessorKey: "approved",
-      cell: ({ row }) => {
-        const value = row.getValue("approved");
 
-        return (
-          <ChangeStatus
-            requestFunction={updateProduct}
-            id={row.getValue("id")}
-            status={value as boolean}
-          />
-        );
-      },
+    {
+      header: (props) => sort(props, "Role"),
+      accessorKey: "role",
     },
     {
       header: () => <p className="text-bold px-2">Actions</p>,
       id: "actions",
       cell: ({ row }) => {
-        const product = row.original;
+        const user = row.original;
 
         return (
           <>
@@ -118,8 +93,8 @@ const useProductsConfig = () => {
                 <DropdownMenuItem
                   className="cursor-pointer"
                   onClick={() => {
-                    const id = product.id;
-                    router.push(`/products/${id}`);
+                    const id = user.id;
+                    router.push(`/users/${id}`);
                   }}
                 >
                   View
@@ -128,7 +103,7 @@ const useProductsConfig = () => {
                 <DropdownMenuItem
                   className={`cursor-pointer text-meta-1 ${styles.deleteBtn}`}
                   onClick={() => {
-                    dispatch(setTarget({ id: product.id, name: product.name }));
+                    dispatch(setTarget({ id: user.id, name: user.name }));
                     dispatch(onOpen());
                   }}
                 >
@@ -145,4 +120,4 @@ const useProductsConfig = () => {
   return [colums];
 };
 
-export default useProductsConfig;
+export default useUsersConfig;

@@ -1,5 +1,5 @@
-import { getProductById } from "@/app/actions/api/products";
-import ClientProduct from "./ClientProduct";
+import { getProductById } from "@/app/api/products";
+import ClientProductDetails from "./ClientProductDetails";
 import Error from "@/app/error";
 interface IParams {
   productId?: string;
@@ -14,7 +14,7 @@ const ProductId = async ({ params }: { params: IParams }) => {
       return <div>Product not found</div>;
     }
     
-    return <ClientProduct product={product.data} />;
+    return <ClientProductDetails product={product.data} />;
   } catch (e) {
     return <Error />;
   }

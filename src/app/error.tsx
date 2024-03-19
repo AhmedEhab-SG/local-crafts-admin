@@ -10,9 +10,7 @@ interface ErrorStateProps {
 }
 
 const Error: FC<ErrorStateProps> = ({ error }) => {
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
+  useEffect(() => {}, [error]);
 
   return (
     <ClientOnly>

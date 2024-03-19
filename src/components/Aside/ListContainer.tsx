@@ -1,7 +1,9 @@
 "use client";
 
+import { closeDrawer } from "@/store/slice/settings";
 import Link from "next/link";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
 interface ListContainerProps {
   icon: React.ReactNode;
@@ -20,6 +22,7 @@ const ListContainer: React.FC<ListContainerProps> = ({
   dropDwon,
   onClick,
 }) => {
+  const dispatch = useDispatch();
   return (
     <li>
       <div
@@ -34,6 +37,7 @@ const ListContainer: React.FC<ListContainerProps> = ({
           flex
           items-center
           gap-3"
+          onClick={() => dispatch(closeDrawer())}
           href={link}
         >
           <div className="fill-current text-bodydark1">{icon}</div>

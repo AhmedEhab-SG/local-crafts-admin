@@ -4,7 +4,7 @@ import ContactsSvg from "@/assets/svg/Contacts.svg";
 import LogoutSvg from "@/assets/svg/Logout.svg";
 import ProfileSvg from "@/assets/svg/Profile.svg";
 import SettingsSvg from "@/assets/svg/Settings.svg";
-import { User } from "@/types/user.type";
+import { IUser } from "@/types/user.type";
 
 import React from "react";
 import BtnHeader from "../shared/BtnHeader";
@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 interface ProfileMenuProps {
   openProfile: boolean;
   profileHandler: () => void;
-  user?: User;
+  user?: IUser;
 }
 
 const ProfileMenu: React.FC<ProfileMenuProps> = ({

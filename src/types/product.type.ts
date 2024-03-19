@@ -1,4 +1,4 @@
-export type Product = {
+export type IProduct = {
   _id?: string;
   id?: string;
   approved: boolean;

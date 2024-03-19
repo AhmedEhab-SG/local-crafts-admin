@@ -1,5 +1,6 @@
-export type User = {
-  _id: string;
+export type IUser = {
+  _id?: string;
+  id?: string;
   email: string;
   photo: string;
   name: string;

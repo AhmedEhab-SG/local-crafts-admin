@@ -4,16 +4,15 @@ import DataTable from "@/components/DataTable";
 import DeleteModel from "@/components/models/DeleteModel";
 import useProductsConfig from "@/hooks/config/useProductsConfig";
 import { FC } from "react";
-import { deleteProduct } from "../actions/api/products";
-import { Product } from "@/types/products";
+import { deleteProduct } from "../api/products";
+import { IProduct } from "@/types/product.type";
 
 interface ClientProductsProps {
-  products: Product[];
+  products: IProduct[];
 }
 
 const ClientProducts: FC<ClientProductsProps> = ({ products }) => {
   const [column] = useProductsConfig();
-  console.log(products);
 
   return (
     <>
