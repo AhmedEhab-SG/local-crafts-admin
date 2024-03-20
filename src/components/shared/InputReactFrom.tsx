@@ -1,5 +1,6 @@
 "use client";
 
+import { ChangeEvent } from "react";
 import {
   FieldErrors,
   FieldErrorsImpl,
@@ -8,7 +9,7 @@ import {
 } from "react-hook-form";
 import { BiSearch } from "react-icons/bi";
 
-interface InputProps {
+interface InputReactFromProps {
   id: string;
   label: string;
   type?: string;
@@ -18,13 +19,18 @@ interface InputProps {
   vaild?: string;
   bgDark?: boolean;
   borders?: boolean;
-  bg?: boolean;
+  value?: string;
+  small?: boolean;
   onclick?: () => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  bg?: boolean;
+  input?: string;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrorsImpl<FieldErrors>;
 }
 
-const InputReactForm: React.FC<InputProps> = ({
+const InputReactFrom: React.FC<InputReactFromProps> = ({
   id,
   label,
   type = "text",
@@ -34,32 +40,40 @@ const InputReactForm: React.FC<InputProps> = ({
   required,
   borders,
   errors,
+  onChange,
+  value,
   bg,
+  small,
   register,
   onclick,
+  className,
+  input = "input",
 }) => {
   return (
-    <div className="w-full relative">
+    <div className={`w-full relative ${className}`}>
       {serach && (
         <BiSearch
           size={24}
           onClick={onclick}
-          className="text-bodydark2 hover:text-graydark cursor-pointer transition absolute top-5 left-2"
+          className={`text-bodydark2 hover:text-graydark cursor-pointer transition absolute ${
+            small ? "top-1.5 left-1" : "top-5 left-2"
+          }`}
         />
       )}
-
-      <input
-        placeholder=" "
-        disabled={disabled}
-        {...register(id, required)}
-        type={type}
-        id={id}
-        name={id}
-        className={`
+      {input === "input" ? (
+        <input
+          placeholder=" "
+          disabled={disabled}
+          value={value}
+          {...register(id, required)}
+          type={type}
+          onChange={onChange}
+          id={id}
+          name={id}
+          className={`
         peer
         w-full
-        p-3
-        pt-6
+        ${small ? "p-1 pt-2 text-sm" : "p-3 pt-6"}
         font-light
         border-2
         rounded-md
@@ -83,7 +97,45 @@ const InputReactForm: React.FC<InputProps> = ({
             ? "focus:border-rose-500"
             : "focus:border-black dark:focus:border-bodydark1"
         }`}
-      />
+        />
+      ) : (
+        <textarea
+          placeholder=" "
+          disabled={disabled}
+          value={value}
+          id={id}
+          name={id}
+          className={`
+        peer
+        min-h-50
+        w-full
+        ${small ? "p-1 pt-2 text-sm" : "p-3 pt-6"}
+        font-light
+        border-2
+        rounded-md
+        outline-none
+        transition
+        disabled:opacity-70
+        disabled:cursor-not-allowed
+        dark:text-bodydark1
+        ${bg ? "bg-bodydark1" : "bg-transparent"}
+        ${bgDark ? "dark:bg-boxdark-2" : "dark:bg-transparent"}
+        ${serach ? "pl-9" : "pl-4"}
+        ${
+          errors[id]
+            ? "border-rose-500"
+            : borders
+            ? "border-bodydark dark:border-form-strokedark"
+            : "border-none"
+        }
+        ${
+          errors[id]
+            ? "focus:border-rose-500"
+            : "focus:border-black dark:focus:border-bodydark1"
+        }`}
+        />
+      )}
+
       {errors[id]?.message && (
         <p className="text-rose-500  p-1 pl-2">{errors[id]?.message}</p>
       )}
@@ -94,15 +146,15 @@ const InputReactForm: React.FC<InputProps> = ({
         text-md
         duration-150
         transform
-        -translate-y-3
-        top-5
-        z-10
+        z-0
         origin-[0]
         pointer-events-none
         peer-placeholder-shown:scale-100
         peer-placeholder-shown:translate-y-0
         peer-focus:scale-75
-        peer-focus:-translate-y-4
+        ${small ? "-translate-y-2" : "-translate-y-3"}
+        ${small ? "top-2 text-xs" : "top-5 text-md"}
+        ${small ? " peer-focus:-translate-y-2" : " peer-focus:-translate-y-4"}
         ${serach ? "left-9" : "left-4"}
         ${errors[id] ? "text-rose-500" : "text-zinc-400 dark:text-bodydark2"}`}
       >
@@ -112,4 +164,4 @@ const InputReactForm: React.FC<InputProps> = ({
   );
 };
 
-export default InputReactForm;
+export default InputReactFrom;
