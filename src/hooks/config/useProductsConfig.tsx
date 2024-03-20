@@ -20,6 +20,9 @@ import { useDispatch } from "react-redux";
 import { onOpen, setTarget } from "@/store/slice/delete";
 import ChangeStatus from "@/components/shared/ChangeStatus";
 import { updateProduct } from "@/app/api/products";
+import { safeImgDisplay } from "@/utils/functions";
+
+import Image from "next/image";
 
 const useProductsConfig = () => {
   const router = useRouter();
@@ -42,6 +45,22 @@ const useProductsConfig = () => {
   };
 
   const colums: ColumnDef<IProduct>[] = [
+    {
+      header: () => <p className="p-0 text text-center">Photo</p>,
+      accessorKey: "photo",
+      cell: ({ row }) => {
+        const product = row.original;
+        return (
+          <Image
+            width={50}
+            height={50}
+            src={safeImgDisplay({ photoUrl: product.photos })}
+            alt="category"
+            className="h-8 w-8 rounded-full mx-auto object-cover"
+          />
+        );
+      },
+    },
     {
       header: (props) => sort(props, "ID"),
       accessorKey: "id",

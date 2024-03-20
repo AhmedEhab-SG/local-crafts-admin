@@ -16,24 +16,37 @@ import {
 
 import { useRouter } from "next/navigation";
 import styles from "@/styles/config.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { onOpen, setTarget } from "@/store/slice/delete";
 import Image from "next/image";
 import { safeImgDisplay } from "@/utils/functions";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getTargetSubCat } from "@/app/api/category";
 import useUser from "../useUser";
 import toast from "react-hot-toast";
+import {
+  onOpenAction,
+  setAction,
+  setTargetAction,
+  setTargetParent,
+  toggleReRender,
+} from "@/store/slice/add-update";
+import { RootState } from "@/store/store";
 
 const useCategoriesConfig = () => {
   const [loading, setLoading] = useState(false);
   const [subCategoriesObj, setSubCategoriesObj] = useState<any>();
+
   const { user } = useUser();
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const reRender = useSelector((state: RootState) => state.addUpdate.reRender);
+
+  const parent = useSelector((state: RootState) => state.addUpdate.parent);
+
   const getSubHandler = useCallback(
-    async (_id: string, target: "products" | "services") => {
+    async (_id: string, target: "products" | "services" | any) => {
       try {
         setLoading(true);
         const res = await getTargetSubCat(target, _id, user?.token);
@@ -48,6 +61,13 @@ const useCategoriesConfig = () => {
     },
     [user]
   );
+
+  useEffect(() => {
+    if (reRender) {
+      getSubHandler(parent._id, parent.target);
+      dispatch(toggleReRender());
+    }
+  }, [reRender, dispatch, getSubHandler, parent._id, parent.target]);
 
   const sort = ({ column }: any, name: string) => {
     {
@@ -66,7 +86,6 @@ const useCategoriesConfig = () => {
 
   const actions = (row: any) => {
     const category = row.original;
-
     return (
       <>
         <DropdownMenu>
@@ -81,15 +100,44 @@ const useCategoriesConfig = () => {
             <hr />
             <DropdownMenuSeparator />
 
+            {(category.parent === "products" ||
+              category.parent === "services") && (
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  const id = category._id;
+                  const target = category.parent;
+                  getSubHandler(id, target);
+                  dispatch(setTargetParent({ parent: { _id: id, target } }));
+                }}
+              >
+                {loading ? "Fetching..." : "View SubCategories"}
+              </DropdownMenuItem>
+            )}
+
             <DropdownMenuItem
-              className="cursor-pointer"
+              className={`cursor-pointer`}
               onClick={() => {
-                const id = category._id;
-                const target = category.parent;
-                getSubHandler(id, target);
+                if (
+                  category.parent === "products" ||
+                  category.parent === "services"
+                )
+                  return router.push(
+                    `/categories/edit?target=${category.parent}&id=${category._id}`
+                  );
+
+                dispatch(
+                  setTargetAction({
+                    id: category._id,
+                    name: category.name,
+                    target: subCategoriesObj.target,
+                  })
+                );
+                dispatch(onOpenAction());
+                dispatch(setAction({ action: "edit" }));
               }}
             >
-              {loading ? "Fetching..." : "View SubCategories"}
+              Edit
             </DropdownMenuItem>
 
             <DropdownMenuItem
@@ -98,7 +146,8 @@ const useCategoriesConfig = () => {
                 dispatch(
                   setTarget({
                     id: category._id,
-                    name: category.product?.name,
+                    name: category.name,
+                    target: subCategoriesObj.target,
                   })
                 );
                 dispatch(onOpen());
@@ -112,9 +161,9 @@ const useCategoriesConfig = () => {
     );
   };
 
-  const columns: ColumnDef<ICategory>[] = [
+  const mainColumns: ColumnDef<ICategory>[] = [
     {
-      header: (props) => sort(props, "Photo"),
+      header: () => <p className="p-0 text text-center">Photo</p>,
       accessorKey: "photo",
       cell: ({ row }) => {
         const category = row.original;
@@ -143,13 +192,30 @@ const useCategoriesConfig = () => {
       accessorKey: "description",
     },
     {
-      header: () => <p className="text-bold px-2">Actions</p>,
+      header: () => <p className="text-bold text-center px-2">Actions</p>,
       id: "actions",
       cell: ({ row }) => actions(row),
     },
   ];
 
-  return [columns, subCategoriesObj];
+  const subColumns: ColumnDef<ICategory>[] = [
+    {
+      header: (props) => sort(props, "ID"),
+      accessorKey: "_id",
+    },
+
+    {
+      header: (props) => sort(props, "Name"),
+      accessorKey: "name",
+    },
+    {
+      header: () => <p className="text-bold text-center px-2">Actions</p>,
+      id: "actions",
+      cell: ({ row }) => actions(row),
+    },
+  ];
+
+  return [mainColumns, subColumns, subCategoriesObj];
 };
 
 export default useCategoriesConfig;

@@ -4,6 +4,8 @@ const INITAL_STATE = {
   id: "",
   name: "",
   open: false,
+  target: "",
+  targetName: "",
 };
 
 const deleteSlice = createSlice({
@@ -14,6 +16,8 @@ const deleteSlice = createSlice({
     setTarget: (state, action) => {
       state.id = action.payload.id;
       state.name = action.payload.name;
+      state.target = action.payload.target;
+      state.targetName = action.payload.targetName;
     },
     onOpen: (state) => {
       state.open = true;

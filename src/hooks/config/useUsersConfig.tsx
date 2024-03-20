@@ -21,6 +21,9 @@ import { onOpen, setTarget } from "@/store/slice/delete";
 import ChangeStatus from "@/components/shared/ChangeStatus";
 import { updateUser } from "@/app/api/users";
 
+import Image from "next/image";
+import { safeImgDisplay } from "@/utils/functions";
+
 const useUsersConfig = () => {
   const router = useRouter();
 
@@ -42,6 +45,22 @@ const useUsersConfig = () => {
   };
 
   const colums: ColumnDef<IUser>[] = [
+    {
+      header: () => <p className="p-0 text text-center">Photo</p>,
+      accessorKey: "photo",
+      cell: ({ row }) => {
+        const user = row.original;
+        return (
+          <Image
+            width={50}
+            height={50}
+            src={safeImgDisplay({ photoUrl: user.photo })}
+            alt="category"
+            className="h-8 w-8 rounded-full mx-auto object-cover"
+          />
+        );
+      },
+    },
     {
       header: (props) => sort(props, "ID"),
       accessorKey: "id",

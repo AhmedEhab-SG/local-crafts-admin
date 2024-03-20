@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 
-type ITarget = "products" | "services";
+type ITarget = "products" | "services" | any;
 
 type IBodyCat = {
   name: string;
@@ -31,8 +31,8 @@ const createTargetCategory = (
 const createTargetSubCat = (
   target: ITarget,
   body: IBodySub,
-  categoryId: string,
-  token?: string
+  token?: string,
+  categoryId?: string
 ) => {
   const url = `/${target}/categories/${categoryId}`;
   return axiosInstance.post(url, body, { headers: { token } });
@@ -49,9 +49,9 @@ const updateTargetCatOrSub = (
 };
 
 const delelteTargetCatOrSub = (
-  target: ITarget,
-  categoryOrSubId: string,
-  token?: string
+  categoryOrSubId?: string,
+  token?: string,
+  target?: ITarget
 ) => {
   const url = `/${target}/categories/${categoryOrSubId}`;
   return axiosInstance.delete(url, { headers: { token } });

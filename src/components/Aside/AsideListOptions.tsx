@@ -12,20 +12,16 @@ import { BiCategoryAlt } from "react-icons/bi";
 const AsideListOptions = () => {
   const category = [
     {
-      nav: "/category/add",
-      title: "Add",
+      nav: "/categories/add",
+      title: "Add Category",
     },
   ];
-  const locations = [
-    {
-      nav: "/locations/gov",
-      title: "Governorate",
-    },
-    {
-      nav: "/locations/city",
-      title: "City",
-    },
-  ];
+  // const locations = [
+  //   {
+  //     nav: "/locations/add",
+  //     title: "Add Governorate",
+  //   },
+  // ];
 
   return (
     <ul
@@ -64,18 +60,16 @@ const AsideListOptions = () => {
         SvgLogo={<Users2Icon />}
       />
       <DashboardSection
-        header="Categories"
-        headerLink="/categories"
-        SvgLogo={<BiCategoryAlt />}
-        lists={category}
-        dropDwon
-      />
-      <DashboardSection
         header="Locations"
         headerLink="/locations"
         SvgLogo={<LocateIcon />}
-        lists={locations}
+      />
+      <DashboardSection
+        header="Categories"
+        headerLink="/categories"
+        SvgLogo={<BiCategoryAlt />}
         dropDwon
+        lists={category}
       />
     </ul>
   );

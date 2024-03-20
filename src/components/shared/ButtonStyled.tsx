@@ -44,7 +44,6 @@ const ButtonStyled: FC<ButtonStyledProps> = ({
           type={type}
           disabled={disabled}
           className={`
-            mt-7 
             inline-flex 
             items-center
             justify-center

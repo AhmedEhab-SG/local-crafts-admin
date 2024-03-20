@@ -13,5 +13,10 @@ export const config = {
     "/products/:productId*",
     "/services",
     "/services/:serviceId*",
+    "/orders",
+    "/users",
+    "/categories",
+    "/categories/:categories*",
+    "/locations",
   ],
 };

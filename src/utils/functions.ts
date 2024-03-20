@@ -58,7 +58,7 @@ const getDaysOfWeek = (): string[] => {
 
   for (let i = 6; i >= 0; i--) {
     const date = new Date();
-    date.setDate(date.getDate() + 1 - i);
+    date.setDate(date.getDate() + 1 - i); // bec it gets with less one reminder
     const day = date.toLocaleString("default", { weekday: "long" });
     daysOfWeek.push(day);
   }
@@ -98,15 +98,22 @@ const calculateRelativeChange = (data: any[]) => {
 
 const safeImgDisplay = (
   options: {
-    photoUrl?: string;
+    photoUrl?: string | string[];
     dark?: boolean;
     darkImg?: string;
     lightImg?: string;
   } = {}
 ): string => {
   const { photoUrl, dark, darkImg, lightImg } = options;
+
+  if (Array.isArray(photoUrl))
+    return photoUrl.length
+      ? photoUrl[0]
+      : "https://i.ibb.co/2P7YK6F/no-image.jpg";
+
   if (photoUrl?.includes("https://") || photoUrl?.includes("http://"))
     return photoUrl;
+
   if (typeof dark === "boolean")
     return dark
       ? darkImg || "https://i.ibb.co/2P7YK6F/no-image.jpg"

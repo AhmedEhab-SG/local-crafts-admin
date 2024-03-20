@@ -20,6 +20,8 @@ import { useDispatch } from "react-redux";
 import { onOpen, setTarget } from "@/store/slice/delete";
 import ChangeStatus from "@/components/shared/ChangeStatus";
 import { updateService } from "@/app/api/services";
+import Image from "next/image";
+import { safeImgDisplay } from "@/utils/functions";
 
 const useServicesConfig = () => {
   const router = useRouter();
@@ -42,6 +44,22 @@ const useServicesConfig = () => {
   };
 
   const colums: ColumnDef<IService>[] = [
+    {
+      header: () => <p className="p-0 text text-center">Photo</p>,
+      accessorKey: "photo",
+      cell: ({ row }) => {
+        const service = row.original;
+        return (
+          <Image
+            width={50}
+            height={50}
+            src={safeImgDisplay({ photoUrl: service.photos })}
+            alt="category"
+            className="h-8 w-8 rounded-full mx-auto object-cover"
+          />
+        );
+      },
+    },
     {
       header: (props) => sort(props, "ID"),
       accessorKey: "id",

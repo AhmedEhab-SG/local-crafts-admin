@@ -9,23 +9,42 @@ import useUser from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { onClose } from "@/store/slice/delete";
+import { onCloseAction, toggleReRender } from "@/store/slice/add-update";
 import toast from "react-hot-toast";
-import { toggleReRender } from "@/store/slice/add-update";
+import { BiAddToQueue } from "react-icons/bi";
+import { MdUpdate } from "react-icons/md";
+import { pascalCase } from "@/utils/functions";
 
-interface DeleteModelProps {
-  deleteFunction: (id?: string, token?: string, target?: any) => any;
+interface AddUpdateModelProps {
+  updateFunction: (
+    target: any,
+    body: any,
+    categoryOrSubId: string,
+    token?: string
+  ) => any;
+
+  addFunction: (target: any, body: any, token: any, categoryId: any) => any;
 }
 
-const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
-  const open = useSelector((state: RootState) => state.delete.open);
+const AddUpdateModel: FC<AddUpdateModelProps> = ({
+  updateFunction,
+  addFunction,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [value, setValue] = useState("");
 
-  const id = useSelector((state: RootState) => state.delete.id);
-  const name = useSelector((state: RootState) => state.delete.name);
+  const action = useSelector((state: RootState) => state.addUpdate.action);
 
-  const targetId = useSelector((state: RootState) => state.delete.target);
+  const parent = useSelector((state: RootState) => state.addUpdate.parent);
+
+  const open = useSelector((state: RootState) => state.addUpdate.open);
+
+  const id = useSelector((state: RootState) => state.addUpdate.id);
+
+  const name = useSelector((state: RootState) => state.addUpdate.name);
+
+  const target = useSelector((state: RootState) => state.addUpdate.target);
 
   const dispatch = useDispatch();
 
@@ -42,32 +61,52 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
   const handleClose = useCallback(() => {
     setShowModal(false);
     setTimeout(() => {
-      dispatch(onClose());
+      dispatch(onCloseAction());
     }, 300);
   }, [dispatch]);
 
   const handleSubmit = useCallback(async () => {
+    const body = { name: value };
+    const subBody = [value];
     try {
-      await deleteFunction(id, user?.token, targetId);
+      action === "edit" &&
+        (await updateFunction(target, body, id, user?.token));
+      action === "add" &&
+        (await addFunction(parent.target, subBody, user?.token, parent._id));
+
+      console.log("action", target);
+
+      parent.target !== "governorates" && dispatch(toggleReRender());
+
       router.refresh();
-      targetId !== "governorates" && dispatch(toggleReRender());
-      toast.success("Deleting Success.");
+      toast.success("Action Success.");
     } catch (error) {
-      toast.error("Deleting failed.");
+      toast.error("Action failed.");
     }
     handleClose();
-  }, [handleClose, dispatch, deleteFunction, id, user, router, targetId]);
+  }, [
+    handleClose,
+    parent._id,
+    action,
+    parent.target,
+    updateFunction,
+    addFunction,
+    user,
+    router,
+    value,
+    id,
+    target,
+    dispatch,
+  ]);
 
-  const handleOnChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      if (e.target.value === id) {
-        setIsDisabled(false);
-      } else {
-        setIsDisabled(true);
-      }
-    },
-    [id]
-  );
+  const handleOnChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== "") {
+      setValue(e.target.value);
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, []);
 
   return (
     <div
@@ -136,30 +175,37 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
                 "
             >
               <h2 className="text-lg font-semibold">
-                Are you sure you want{" "}
-                <span className="text-danger">permanently</span> to delete this
-                Item?
+                Type your new{" "}
+                <span className="text-warning">{action.toUpperCase()}</span>{" "}
+                value
               </h2>
             </div>
             <p className="relative p-6  text-center">
-              This item will be deleted{" "}
+              This item will be{" "}
               <span
                 className="font-bold
                   text-warning"
               >
-                permanently
+                {pascalCase(action)}
               </span>{" "}
-              If you want to delete this item{" "}
-              <span className="text-warning font-semibold">{name}</span> which
-              has id of{" "}
-              <span
-                className="
+              {action === "edit" && (
+                <>
+                  {" "}
+                  If you want to update this item{" "}
+                  <span className="text-warning font-semibold">
+                    {name}
+                  </span>{" "}
+                  which has id of{" "}
+                  <span
+                    className="
                   font-bold
-                  text-danger"
-              >
-                {id}
-              </span>
-              , Please type the id of the item to confirm the action.
+                  text-success"
+                  >
+                    {id}
+                  </span>
+                </>
+              )}
+              , Please type the new name of the item to confirm the action.
             </p>
             <div
               className="
@@ -170,13 +216,13 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
             >
               <InputStyled
                 id="delete-item"
-                label="Type id to confirm"
+                label="Type update to confirm"
                 borders
                 bgDark
                 onChange={handleOnChange}
               />
             </div>
-            <div className="flex justify-center items-center gap-2 mt-6 pb-6">
+            <div className="flex justify-center items-center gap-2 mt-6  pb-6">
               <ButtonStyled
                 SvgIcon={<IoMdClose size={18} />}
                 title="Cancel"
@@ -186,10 +232,16 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
                 onClick={handleClose}
               />
               <ButtonStyled
-                SvgIcon={<Trash2 size={18} />}
-                title="Delete"
+                SvgIcon={
+                  action === "add" ? (
+                    <BiAddToQueue size={18} />
+                  ) : (
+                    <MdUpdate size={18} />
+                  )
+                }
+                title={pascalCase(action)}
                 small
-                danger
+                primary
                 disabled={isDisabled}
                 onClick={handleSubmit}
               />
@@ -201,4 +253,4 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
   );
 };
 
-export default DeleteModel;
+export default AddUpdateModel;

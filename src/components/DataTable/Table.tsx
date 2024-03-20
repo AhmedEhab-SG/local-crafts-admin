@@ -129,7 +129,7 @@ export function TableData<TData, TValue>({
                             )}
 
                         {/* searh */}
-                        {header.id != "actions" && (
+                        {header.id != "actions" && header.id != "photo" && (
                           <div className="flex items-center dark: py-4">
                             <InputStyled
                               id={header.id}

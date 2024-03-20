@@ -2,11 +2,21 @@
 
 import DataTable from "@/components/DataTable";
 import DeleteModel from "@/components/models/DeleteModel";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { deleteOrder } from "../api/orders";
 import TotalContainer from "@/components/shared/TotalContainer";
 import { ICategory } from "@/types/category.type";
 import useCategoriesConfig from "@/hooks/config/useCategoriesConfig";
+import AddUpdateModel from "@/components/models/AddUpdateModel";
+import {
+  createTargetCategory,
+  createTargetSubCat,
+  delelteTargetCatOrSub,
+  updateTargetCatOrSub,
+} from "../api/category";
+import { useDispatch } from "react-redux";
+import { RootState } from "@/store/store";
+import { onOpenAction, setAction } from "@/store/slice/add-update";
 
 interface ClientCategoriesProps {
   prodCategories: ICategory[];
@@ -17,7 +27,8 @@ const ClientCategories: FC<ClientCategoriesProps> = ({
   prodCategories,
   servCategories,
 }) => {
-  const [columns, subCategoriesObj] = useCategoriesConfig();
+  const [columns, subColumns, subCategoriesObj] = useCategoriesConfig();
+  const dispatch = useDispatch();
 
   const prodCategoriesData = prodCategories.map((category) => ({
     ...category,
@@ -35,7 +46,9 @@ const ClientCategories: FC<ClientCategoriesProps> = ({
         <div className="flex justify-center flex-col lg:flex-row gap-5 items-center">
           <DataTable
             className={`${
-              subCategoriesObj?.target === "products" && "lg:w-1/2"
+              subCategoriesObj?.target === "products"
+                ? "w-full lg:w-1/2"
+                : "w-full"
             }`}
             title="Products Categories"
             columns={columns}
@@ -45,21 +58,29 @@ const ClientCategories: FC<ClientCategoriesProps> = ({
           {subCategoriesObj?.target === "products" && (
             <DataTable
               className={`${
-                subCategoriesObj?.target === "products" && "lg:w-1/2"
+                subCategoriesObj?.target === "products"
+                  ? "w-full lg:w-1/2"
+                  : "w-full"
               }`}
               title="Products Sub Categories"
-              columns={columns}
+              columns={subColumns}
               data={subCategoriesObj?.subCategories}
+              onClick={() => {
+                dispatch(setAction({ action: "add" }));
+                dispatch(onOpenAction());
+              }}
             />
           )}
         </div>
       </TotalContainer>
 
       <TotalContainer>
-        <div className="flex justify-center gap-5 items-center">
+        <div className="flex justify-center flex-col lg:flex-row gap-5 items-center">
           <DataTable
             className={`${
-              subCategoriesObj?.target === "services" ? "w-1/2" : "w-full"
+              subCategoriesObj?.target === "services"
+                ? "w-full lg:w-1/2"
+                : "w-full"
             }`}
             title="Services Categories"
             columns={columns}
@@ -69,17 +90,27 @@ const ClientCategories: FC<ClientCategoriesProps> = ({
           {subCategoriesObj?.target === "services" && (
             <DataTable
               className={`${
-                subCategoriesObj?.target === "service" ? "w-1/2" : "w-full"
+                subCategoriesObj?.target === "services"
+                  ? "w-full lg:w-1/2"
+                  : "w-full"
               }`}
               title="Services Sub Categories"
-              columns={columns}
+              columns={subColumns}
               data={subCategoriesObj?.subCategories}
+              onClick={() => {
+                dispatch(setAction({ action: "add" }));
+                dispatch(onOpenAction());
+              }}
             />
           )}
         </div>
       </TotalContainer>
 
-      <DeleteModel deleteFunction={deleteOrder} />
+      <AddUpdateModel
+        updateFunction={updateTargetCatOrSub}
+        addFunction={createTargetSubCat}
+      />
+      <DeleteModel deleteFunction={delelteTargetCatOrSub} />
     </div>
   );
 };
