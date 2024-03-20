@@ -15,8 +15,9 @@ export const config = {
     "/services/:serviceId*",
     "/orders",
     "/users",
+    "/locations", 
     "/categories",
+    "/categories/add",
     "/categories/:categories*",
-    "/locations",
   ],
 };

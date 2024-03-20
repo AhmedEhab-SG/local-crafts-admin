@@ -68,6 +68,7 @@ const InputForm = () => {
           id="email"
           vaild="email"
           bgDark
+          bg
           borders
           label="Email"
           disabled={isLoading}
@@ -100,6 +101,7 @@ const InputForm = () => {
         </label>
         <InputReactForm
           disabled={isLoading}
+          bg
           required={{
             required: {
               value: true,

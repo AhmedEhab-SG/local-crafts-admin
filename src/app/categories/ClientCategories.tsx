@@ -69,6 +69,7 @@ const ClientCategories: FC<ClientCategoriesProps> = ({
                 dispatch(setAction({ action: "add" }));
                 dispatch(onOpenAction());
               }}
+              btnTitle="Add Sub Category"
             />
           )}
         </div>
@@ -101,6 +102,7 @@ const ClientCategories: FC<ClientCategoriesProps> = ({
                 dispatch(setAction({ action: "add" }));
                 dispatch(onOpenAction());
               }}
+              btnTitle="Add Sub Category"
             />
           )}
         </div>

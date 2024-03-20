@@ -1,6 +1,5 @@
 "use client";
 
-import { ChangeEvent } from "react";
 import {
   FieldErrors,
   FieldErrorsImpl,
@@ -19,6 +18,7 @@ interface InputProps {
   vaild?: string;
   bgDark?: boolean;
   borders?: boolean;
+  bg?: boolean;
   onclick?: () => void;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrorsImpl<FieldErrors>;
@@ -34,6 +34,7 @@ const InputReactForm: React.FC<InputProps> = ({
   required,
   borders,
   errors,
+  bg,
   register,
   onclick,
 }) => {
@@ -67,7 +68,7 @@ const InputReactForm: React.FC<InputProps> = ({
         disabled:opacity-70
         disabled:cursor-not-allowed
         dark:text-bodydark1
-        bg-transparent
+        ${bg ? "bg-bodydark1" : "bg-transparent"}
         ${bgDark ? "dark:bg-boxdark-2" : "dark:bg-transparent"}
         ${serach ? "pl-9" : "pl-4"}
         ${

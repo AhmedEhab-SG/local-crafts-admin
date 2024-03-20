@@ -9,6 +9,7 @@ interface DataTableProps {
   title?: string;
   data: any[];
   className?: string;
+  btnTitle?: string;
   onClick?: () => void;
 }
 
@@ -17,6 +18,7 @@ const DataTable: FC<DataTableProps> = ({
   data,
   title,
   className,
+  btnTitle,
   onClick,
 }) => {
   return (
@@ -29,7 +31,7 @@ const DataTable: FC<DataTableProps> = ({
           primary
           small
           className="-mt-10"
-          title="Add to table"
+          title={btnTitle}
         />
       )}
     </div>

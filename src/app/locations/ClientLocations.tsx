@@ -55,6 +55,7 @@ const ClientLocations: FC<ClientLocationsProps> = ({ governorates }) => {
               dispatch(onOpenAction());
               dispatch(setTargetParent({ parent: { target: "governorates" } }));
             }}
+            btnTitle="Add Governorate"
           />
 
           {citiesObj && (
@@ -66,8 +67,11 @@ const ClientLocations: FC<ClientLocationsProps> = ({ governorates }) => {
               onClick={() => {
                 dispatch(setAction({ action: "add" }));
                 dispatch(onOpenAction());
-                dispatch(setTargetParent({ parent: { _id, target: "cities" } }));
+                dispatch(
+                  setTargetParent({ parent: { _id, target: "cities" } })
+                );
               }}
+              btnTitle="Add City"
             />
           )}
         </div>

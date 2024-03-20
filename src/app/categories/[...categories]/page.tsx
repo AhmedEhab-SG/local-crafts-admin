@@ -9,6 +9,7 @@ import { getTargetCategories } from "@/app/api/category";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { ICategory } from "@/types/category.type";
+import AddClient from "./AddClient";
 
 interface IParams {
   params: { categories: string[] };
@@ -65,7 +66,18 @@ const ActionCategory: FC<IParams> = async ({ params, searchParams }) => {
     if (params?.categories[0] === "add" && !params?.categories[1]) {
       return (
         <PageContainer>
-          <h1>add</h1>
+          <PageHeader
+            title={`Add Main Category`}
+            route={[
+              { name: "Dashboard", path: "/" },
+              { name: "Categories", path: "/categories" },
+              {
+                name: "Add Category",
+                path: `/categories/add`,
+              },
+            ]}
+          />
+          <AddClient />
         </PageContainer>
       );
     }

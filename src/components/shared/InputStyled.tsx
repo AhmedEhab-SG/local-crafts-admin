@@ -19,6 +19,8 @@ interface InputProps {
   errors?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  bg?: boolean;
+  input?: string;
 }
 
 const InputStyled: React.FC<InputProps> = ({
@@ -33,9 +35,11 @@ const InputStyled: React.FC<InputProps> = ({
   errors,
   onChange,
   value,
+  bg,
   small,
   onclick,
   className,
+  input = "input",
 }) => {
   return (
     <div className={`w-full relative ${className}`}>
@@ -48,16 +52,16 @@ const InputStyled: React.FC<InputProps> = ({
           }`}
         />
       )}
-
-      <input
-        placeholder=" "
-        disabled={disabled}
-        value={value}
-        type={type}
-        onChange={onChange}
-        id={id}
-        name={id}
-        className={`
+      {input === "input" ? (
+        <input
+          placeholder=" "
+          disabled={disabled}
+          value={value}
+          type={type}
+          onChange={onChange}
+          id={id}
+          name={id}
+          className={`
         peer
         w-full
         ${small ? "p-1 pt-2 text-sm" : "p-3 pt-6"}
@@ -69,7 +73,7 @@ const InputStyled: React.FC<InputProps> = ({
         disabled:opacity-70
         disabled:cursor-not-allowed
         dark:text-bodydark1
-        bg-transparent
+        ${bg ? "bg-bodydark1" : "bg-transparent"}
         ${bgDark ? "dark:bg-boxdark-2" : "dark:bg-transparent"}
         ${serach ? "pl-9" : "pl-4"}
         ${
@@ -84,7 +88,45 @@ const InputStyled: React.FC<InputProps> = ({
             ? "focus:border-rose-500"
             : "focus:border-black dark:focus:border-bodydark1"
         }`}
-      />
+        />
+      ) : (
+        <textarea
+          placeholder=" "
+          disabled={disabled}
+          value={value}
+          id={id}
+          name={id}
+          className={`
+        peer
+        min-h-50
+        w-full
+        ${small ? "p-1 pt-2 text-sm" : "p-3 pt-6"}
+        font-light
+        border-2
+        rounded-md
+        outline-none
+        transition
+        disabled:opacity-70
+        disabled:cursor-not-allowed
+        dark:text-bodydark1
+        ${bg ? "bg-bodydark1" : "bg-transparent"}
+        ${bgDark ? "dark:bg-boxdark-2" : "dark:bg-transparent"}
+        ${serach ? "pl-9" : "pl-4"}
+        ${
+          errors
+            ? "border-rose-500"
+            : borders
+            ? "border-bodydark dark:border-form-strokedark"
+            : "border-none"
+        }
+        ${
+          errors
+            ? "focus:border-rose-500"
+            : "focus:border-black dark:focus:border-bodydark1"
+        }`}
+        />
+      )}
+
       {errors && <p className="text-rose-500  p-1 pl-2">{errors}</p>}
       <label
         htmlFor={id}

@@ -4,11 +4,15 @@ import { ReactNode } from "react";
 
 interface TotalContainerProps {
   children?: ReactNode;
+  className?: string;
 }
-const TotalContainer: React.FC<TotalContainerProps> = ({ children }) => {
+const TotalContainer: React.FC<TotalContainerProps> = ({
+  children,
+  className,
+}) => {
   return (
     <div
-      className="
+      className={`
       rounded-sm
       border 
       border-stroke 
@@ -17,7 +21,7 @@ const TotalContainer: React.FC<TotalContainerProps> = ({ children }) => {
       py-6 
       shadow-default 
       dark:border-strokedark 
-      dark:bg-boxdark"
+      dark:bg-boxdark ${className}`}
     >
       {children}
     </div>

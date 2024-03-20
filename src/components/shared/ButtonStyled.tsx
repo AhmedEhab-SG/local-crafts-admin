@@ -17,6 +17,7 @@ interface ButtonStyledProps {
   primary?: boolean;
   danger?: boolean;
   warning?: boolean;
+  success?: boolean;
   small?: boolean;
 }
 
@@ -34,6 +35,7 @@ const ButtonStyled: FC<ButtonStyledProps> = ({
   danger,
   target,
   small,
+  success,
   elemType = "button",
 }) => {
   return (
@@ -51,6 +53,7 @@ const ButtonStyled: FC<ButtonStyledProps> = ({
             rounded-md
            ${primary && "bg-primary border border-primary"}
             ${danger && "bg-danger border border-danger"}
+            ${success && "bg-success border border-success"}
             ${warning && "bg-warning border border-warning"} 
             ${
               transparent &&

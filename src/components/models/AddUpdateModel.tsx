@@ -176,17 +176,24 @@ const AddUpdateModel: FC<AddUpdateModelProps> = ({
             >
               <h2 className="text-lg font-semibold">
                 Type your new{" "}
-                <span className="text-warning">{action.toUpperCase()}</span>{" "}
+                <span
+                  className={
+                    action === "edit" ? "text-warning" : "text-success"
+                  }
+                >
+                  {action.toUpperCase()}
+                </span>{" "}
                 value
               </h2>
             </div>
             <p className="relative p-6  text-center">
               This item will be{" "}
               <span
-                className="font-bold
-                  text-warning"
+                className={`font-bold ${
+                  action === "edit" ? "text-warning" : "text-success"
+                }`}
               >
-                {pascalCase(action)}
+                {pascalCase(action)}ed
               </span>{" "}
               {action === "edit" && (
                 <>
@@ -199,7 +206,7 @@ const AddUpdateModel: FC<AddUpdateModelProps> = ({
                   <span
                     className="
                   font-bold
-                  text-success"
+                  text-warning"
                   >
                     {id}
                   </span>
@@ -216,7 +223,7 @@ const AddUpdateModel: FC<AddUpdateModelProps> = ({
             >
               <InputStyled
                 id="delete-item"
-                label="Type update to confirm"
+                label={`Type the ${action} to confirm`}
                 borders
                 bgDark
                 onChange={handleOnChange}
@@ -227,7 +234,7 @@ const AddUpdateModel: FC<AddUpdateModelProps> = ({
                 SvgIcon={<IoMdClose size={18} />}
                 title="Cancel"
                 small
-                warning
+                primary
                 transparent
                 onClick={handleClose}
               />
@@ -241,7 +248,8 @@ const AddUpdateModel: FC<AddUpdateModelProps> = ({
                 }
                 title={pascalCase(action)}
                 small
-                primary
+                success={action === "add"}
+                warning={action === "edit"}
                 disabled={isDisabled}
                 onClick={handleSubmit}
               />
