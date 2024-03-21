@@ -58,7 +58,7 @@ const ActionCategory: FC<IParams> = async ({ params, searchParams }) => {
               },
             ]}
           />
-          <EditClient category={category} />
+          <EditClient target={searchParams?.target} category={category} />
         </PageContainer>
       );
     }

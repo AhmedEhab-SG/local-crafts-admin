@@ -75,7 +75,6 @@ const ButtonStyled: FC<ButtonStyledProps> = ({
           onClick={onClick}
           target={target}
           className={`
-            mt-7 
             inline-flex 
             items-center
             gap-2

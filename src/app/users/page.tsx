@@ -8,6 +8,7 @@ import ClientUsers from "./ClientUsers";
 import Error from "../error";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
+import NotFound from "../not-found";
 
 const Users = async () => {
   try {
@@ -17,10 +18,13 @@ const Users = async () => {
       page: 1,
       limit: 0,
     });
+
+    if (res.status === 404) return <NotFound />;
+
     const users: IUser[] = res.data.data;
 
     if (!users) return <div>Users not found</div>;
-    
+
     return (
       <PageContainer>
         <PageHeader

@@ -2,14 +2,15 @@
 
 import ListContainer from "./ListContainer";
 import ListDetails from "./ListDetails";
-import { FC, ReactNode, useState } from "react";
+import { CSSProperties, FC, ReactNode, useState } from "react";
 
 interface DashboardSectionProps {
   SvgLogo: ReactNode;
   header: string;
-  lists?: { nav: string; title: string }[];
+  lists?: { nav: string; title: string }[] | [];
   headerLink: string;
   show?: boolean;
+  styles?: CSSProperties;
   dropDwon?: boolean;
 }
 
@@ -20,6 +21,7 @@ const DashboardSection: FC<DashboardSectionProps> = ({
   headerLink,
   show,
   dropDwon,
+  styles,
 }) => {
   const [showLists, setShowLists] = useState(show ? true : false);
 
@@ -29,6 +31,7 @@ const DashboardSection: FC<DashboardSectionProps> = ({
 
   return (
     <ListContainer
+      styles={styles}
       onClick={listToggle}
       icon={SvgLogo}
       title={header}

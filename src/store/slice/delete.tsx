@@ -17,6 +17,8 @@ const deleteSlice = createSlice({
       state.id = action.payload.id;
       state.name = action.payload.name;
       state.target = action.payload.target;
+    },
+    setParent: (state, action) => {
       state.targetName = action.payload.targetName;
     },
     onOpen: (state) => {
@@ -28,6 +30,6 @@ const deleteSlice = createSlice({
   },
 });
 
-export const { setTarget, onOpen, onClose } = deleteSlice.actions;
+export const { setTarget, onOpen, onClose, setParent } = deleteSlice.actions;
 
 export default deleteSlice.reducer;

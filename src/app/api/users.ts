@@ -8,9 +8,9 @@ const getUsersPaginate = (token: any, queryParams: any) => {
     params: { page, limit },
   });
 };
-const getusersById = (params: any) => {
-  const url = `/users`;
-  return axiosInstance.get(url);
+const getusersById = (userId: string, token?: string) => {
+  const url = `/users/${userId}`;
+  return axiosInstance.get(url, { headers: { token } });
 };
 
 const createUser = (params: any) => {

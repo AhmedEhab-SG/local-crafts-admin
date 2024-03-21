@@ -2,6 +2,7 @@
 
 import { closeDrawer } from "@/store/slice/settings";
 import Link from "next/link";
+import { CSSProperties } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
@@ -12,6 +13,7 @@ interface ListContainerProps {
   children?: React.ReactNode;
   onClick?: () => void;
   dropDwon?: boolean;
+  styles?: CSSProperties;
 }
 
 const ListContainer: React.FC<ListContainerProps> = ({
@@ -21,10 +23,11 @@ const ListContainer: React.FC<ListContainerProps> = ({
   link,
   dropDwon,
   onClick,
+  styles,
 }) => {
   const dispatch = useDispatch();
   return (
-    <li>
+    <li style={styles}>
       <div
         className="
           flex

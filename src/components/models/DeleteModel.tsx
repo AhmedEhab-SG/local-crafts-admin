@@ -26,6 +26,7 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
   const name = useSelector((state: RootState) => state.delete.name);
 
   const targetId = useSelector((state: RootState) => state.delete.target);
+  const targetName = useSelector((state: RootState) => state.delete.targetName);
 
   const dispatch = useDispatch();
 
@@ -50,13 +51,24 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
     try {
       await deleteFunction(id, user?.token, targetId);
       router.refresh();
-      targetId !== "governorates" && dispatch(toggleReRender());
+      targetId !== "governorates" &&
+        targetName !== "parent" &&
+        dispatch(toggleReRender());
       toast.success("Deleting Success.");
     } catch (error) {
       toast.error("Deleting failed.");
     }
     handleClose();
-  }, [handleClose, dispatch, deleteFunction, id, user, router, targetId]);
+  }, [
+    handleClose,
+    dispatch,
+    deleteFunction,
+    id,
+    user,
+    router,
+    targetId,
+    targetName,
+  ]);
 
   const handleOnChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

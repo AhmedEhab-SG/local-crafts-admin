@@ -54,6 +54,7 @@ const delelteTargetCatOrSub = (
   target?: ITarget
 ) => {
   const url = `/${target}/categories/${categoryOrSubId}`;
+  console.log(url);
   return axiosInstance.delete(url, { headers: { token } });
 };
 

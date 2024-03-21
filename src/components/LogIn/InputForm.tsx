@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import InputReactForm from "../shared/InputReactFrom";
 import {
   useForm,
@@ -12,12 +12,18 @@ import { signIn } from "next-auth/react";
 import ButtonStyled from "../shared/ButtonStyled";
 import { ClipLoader } from "react-spinners";
 import LoginSvg from "@/assets/svg/Login.svg";
-import { useRouter } from "next/navigation";
 
 const InputForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState("");
-  const router = useRouter();
+
+  useEffect(() => {
+    if (redirect) {
+      window.location.href = "/";
+      setRedirect(() => false);
+    }
+  }, [redirect]);
 
   const {
     register,
@@ -43,8 +49,8 @@ const InputForm = () => {
         setError(() => "invaild credentials");
         return;
       }
-      router.push("/");
-      setIsLoading(false);
+
+      setRedirect(() => true);
     } catch (err) {
       setIsLoading(false);
     }

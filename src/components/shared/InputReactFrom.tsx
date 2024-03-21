@@ -11,7 +11,7 @@ import { BiSearch } from "react-icons/bi";
 
 interface InputReactFromProps {
   id: string;
-  label: string;
+  label?: string;
   type?: string;
   disabled?: boolean;
   serach?: boolean;
@@ -28,6 +28,7 @@ interface InputReactFromProps {
   input?: string;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrorsImpl<FieldErrors>;
+  defaultValue?: string;
 }
 
 const InputReactFrom: React.FC<InputReactFromProps> = ({
@@ -48,6 +49,7 @@ const InputReactFrom: React.FC<InputReactFromProps> = ({
   onclick,
   className,
   input = "input",
+  defaultValue,
 }) => {
   return (
     <div className={`w-full relative ${className}`}>
@@ -62,6 +64,7 @@ const InputReactFrom: React.FC<InputReactFromProps> = ({
       )}
       {input === "input" ? (
         <input
+          defaultValue={defaultValue}
           placeholder=" "
           disabled={disabled}
           value={value}
@@ -100,8 +103,10 @@ const InputReactFrom: React.FC<InputReactFromProps> = ({
         />
       ) : (
         <textarea
+          defaultValue={defaultValue}
           placeholder=" "
           disabled={disabled}
+          {...register(id, required)}
           value={value}
           id={id}
           name={id}

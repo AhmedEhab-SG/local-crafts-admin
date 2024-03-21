@@ -17,7 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import styles from "@/styles/config.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { onOpen, setTarget } from "@/store/slice/delete";
+import { onOpen, setParent, setTarget } from "@/store/slice/delete";
 import Image from "next/image";
 import { safeImgDisplay } from "@/utils/functions";
 import { useCallback, useEffect, useState } from "react";
@@ -63,11 +63,13 @@ const useCategoriesConfig = () => {
   );
 
   useEffect(() => {
+    router.refresh();
     if (reRender) {
+      console.log(parent._id, parent.target);
       getSubHandler(parent._id, parent.target);
       dispatch(toggleReRender());
     }
-  }, [reRender, dispatch, getSubHandler, parent._id, parent.target]);
+  }, [reRender, parent, dispatch, getSubHandler, router]);
 
   const sort = ({ column }: any, name: string) => {
     {
@@ -145,11 +147,21 @@ const useCategoriesConfig = () => {
               onClick={() => {
                 dispatch(
                   setTarget({
-                    id: category._id,
-                    name: category.name,
-                    target: subCategoriesObj.target,
+                    target: "",
                   })
                 );
+                dispatch(
+                  setTarget({
+                    id: category._id,
+                    name: category.name,
+                    target: subCategoriesObj?.target || category.parent,
+                  })
+                );
+
+                category.parent === "products" || category.parent === "services"
+                  ? dispatch(setParent({ targetName: "parent" }))
+                  : dispatch(setParent({ targetName: "child" }));
+
                 dispatch(onOpen());
               }}
             >

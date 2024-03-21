@@ -21,6 +21,7 @@ interface InputProps {
   className?: string;
   bg?: boolean;
   input?: string;
+  defaultValue?: string;
 }
 
 const InputStyled: React.FC<InputProps> = ({
@@ -40,6 +41,7 @@ const InputStyled: React.FC<InputProps> = ({
   onclick,
   className,
   input = "input",
+  defaultValue,
 }) => {
   return (
     <div className={`w-full relative ${className}`}>
@@ -54,6 +56,7 @@ const InputStyled: React.FC<InputProps> = ({
       )}
       {input === "input" ? (
         <input
+          defaultValue={defaultValue}
           placeholder=" "
           disabled={disabled}
           value={value}
@@ -91,6 +94,7 @@ const InputStyled: React.FC<InputProps> = ({
         />
       ) : (
         <textarea
+          defaultValue={defaultValue}
           placeholder=" "
           disabled={disabled}
           value={value}

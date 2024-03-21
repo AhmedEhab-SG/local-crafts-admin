@@ -2,10 +2,13 @@ export type IUser = {
   _id?: string;
   id?: string;
   email: string;
-  photo: string;
+  photo?: string;
   name: string;
   role: string;
-  description: string;
+  description?: string;
   address: { city: string; gov: string };
   token: string;
+  job?: string;
+  phone?: string;
+  createdAt?: string;
 };
