@@ -9,14 +9,17 @@ import DoughnutChart from "@/components/Charts/DoughnutChart";
 import TotalModel from "@/components/models/TotalModel";
 import PageContainer from "@/components/shared/PageContainer";
 import PageHeader from "@/components/shared/PageHeader";
-import { calculateRelativeChange } from "@/utils/functions";
 import { FC } from "react";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 
 interface HomeClientProps {
   data: any;
 }
 
 const HomeClient: FC<HomeClientProps> = ({ data }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
   const { products, services, users, orders } = data;
 
   const productsArr = products.data;
@@ -91,7 +94,15 @@ const HomeClient: FC<HomeClientProps> = ({ data }) => {
         ))}
       </div>
 
-      <div className="mt-4 flex flex-col lg:flex-row justify-center gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+      <div
+        ref={ref}
+        style={{
+          opacity: isInView ? 1 : 0,
+          transform: isInView ? "none" : "translateY(20px)",
+          transition: `all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1)0.2s`,
+        }}
+        className="mt-4 flex flex-col lg:flex-row justify-center gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5"
+      >
         <DoughnutChart data={dataArr} />
         <BarChart data={dataArr} />
       </div>
