@@ -21,7 +21,7 @@ const LoginInfo = () => {
         flex-col
         items-center"
       >
-        <AdminPanelLogo styles="dark:text-white mb-5.5" title="Admin Panel" />
+        <AdminPanelLogo styles="dark:text-white mb-5.5" title="Local Crafts Admin" />
         <p
           className="
         2xl:px-20 

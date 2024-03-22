@@ -44,7 +44,7 @@ const Aside = () => {
             lg:py-6.5
             "
         >
-          <AdminPanelLogo title="Admin Panel" styles=" text-bodydark1" />
+          <AdminPanelLogo title="Local Crafts" styles="text-bodydark1" />
           <button
             onClick={() => dispatch(toggleDrawer())}
             className="text-bodydark text-lg  lg:hidden"
