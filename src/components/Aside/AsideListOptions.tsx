@@ -10,10 +10,16 @@ import { LocateIcon, Users2Icon } from "lucide-react";
 import { BiCategoryAlt } from "react-icons/bi";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import useUser from "@/hooks/useUser";
+import useDelay from "@/hooks/useDelay";
 
 const AsideListOptions = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  const { user } = useUser();
+
+  const [delay] = useDelay(50, user ? true : false);
 
   const category = [
     {
@@ -63,16 +69,16 @@ const AsideListOptions = () => {
   const adminCommands = commands.map(
     ({ header, headerLink, SvgLogo }, index) => (
       <DashboardSection
-        styles={{
-          opacity: isInView ? 1 : 0,
-          transform: isInView ? "none" : "translateY(10px)",
-          transition: `all ${index * 0.5}s cubic-bezier(0.17, 0.55, 0.55, 1)${
-            index * 0.2
-          }s`,
-        }}
+        key={index}
+        styles={{ transitionDelay: `${index * 0.2}s` }}
+        liClassName={` ${user ? "block" : "hidden"}`}
+        divClassName={`
+        translate
+        duration-500
+        ${delay ? "translate-y-0" : "-translate-y-full"}
+        ${delay ? "opacity-100" : "opacity-0"} `}
         header={header}
         headerLink={headerLink}
-        key={index}
         SvgLogo={SvgLogo}
         dropDwon={index === commands.length - 1}
         show={index === commands.length - 1}
@@ -89,9 +95,27 @@ const AsideListOptions = () => {
         flex
         flex-col
         gap-10
-        w-full"
+        w-full
+       
+        "
     >
-      {adminCommands}
+      {user ? (
+        adminCommands
+      ) : (
+        <p
+          className={`
+          text-center 
+          translate
+          duration-1000
+          delay-300
+          text-lg 
+          ${isInView ? "translate-y-0" : "translate-y-full"}
+          ${isInView ? "opacity-100" : "opacity-0"} 
+          ${!user ? "block" : "hidden"}`}
+        >
+          Please Sign In first to see the admin commands
+        </p>
+      )}
     </ul>
   );
 };

@@ -12,6 +12,10 @@ interface DashboardSectionProps {
   show?: boolean;
   styles?: CSSProperties;
   dropDwon?: boolean;
+  delay?: boolean;
+  ref?: any;
+  liClassName?: string;
+  divClassName?: string;
 }
 
 const DashboardSection: FC<DashboardSectionProps> = ({
@@ -22,15 +26,20 @@ const DashboardSection: FC<DashboardSectionProps> = ({
   show,
   dropDwon,
   styles,
+  liClassName,
+  divClassName,
+  delay,
 }) => {
   const [showLists, setShowLists] = useState(show ? true : false);
 
   const listToggle = () => {
     setShowLists((prev) => !prev);
   };
-
   return (
     <ListContainer
+      divClassName={divClassName}
+      liClassName={liClassName}
+      delay={delay}
       styles={styles}
       onClick={listToggle}
       icon={SvgLogo}

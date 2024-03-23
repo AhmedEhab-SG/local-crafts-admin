@@ -14,7 +14,6 @@ const ListDetails: React.FC<ListDetailsProps> = ({ title, nav }) => {
   return (
     <ul
       className={`
-         
         flex
         mt-4 
         flex-col 

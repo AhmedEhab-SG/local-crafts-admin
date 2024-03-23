@@ -1,6 +1,13 @@
 "use client";
 
-import { ChangeEvent, FC, useCallback, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
 import ButtonStyled from "../shared/ButtonStyled";
 import { IoMdClose } from "react-icons/io";
 import { Trash2 } from "lucide-react";
@@ -12,6 +19,7 @@ import { RootState } from "@/store/store";
 import { onClose } from "@/store/slice/delete";
 import toast from "react-hot-toast";
 import { toggleReRender } from "@/store/slice/add-update";
+import useDelay from "@/hooks/useDelay";
 
 interface DeleteModelProps {
   deleteFunction: (id?: string, token?: string, target?: any) => any;
@@ -19,7 +27,9 @@ interface DeleteModelProps {
 
 const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
   const open = useSelector((state: RootState) => state.delete.open);
-  const [showModal, setShowModal] = useState(false);
+
+  const [showComponent, setShowComponent] = useDelay(10, open);
+
   const [isDisabled, setIsDisabled] = useState(true);
 
   const id = useSelector((state: RootState) => state.delete.id);
@@ -34,18 +44,12 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
 
   const { user } = useUser();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowModal(open);
-    }, 10);
-  }, [open]);
-
   const handleClose = useCallback(() => {
-    setShowModal(false);
+    setShowComponent(false);
     setTimeout(() => {
       dispatch(onClose());
     }, 300);
-  }, [dispatch]);
+  }, [dispatch, setShowComponent]);
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -114,8 +118,8 @@ const DeleteModel: FC<DeleteModelProps> = ({ deleteFunction }) => {
             translate
             duration-300
         
-            ${showModal ? "translate-y-0" : "-translate-y-full"}
-            ${showModal ? "opacity-100" : "opacity-0"}`}
+            ${showComponent ? "translate-y-0" : "-translate-y-full"}
+            ${showComponent ? "opacity-100" : "opacity-0"}`}
         >
           <div
             className="
