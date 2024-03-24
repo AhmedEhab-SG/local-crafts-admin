@@ -37,7 +37,7 @@ NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your cloudinary name"
 
 NEXT_PUBLIC_CLOUDINARY_SECRET="your cloudinary secret"
 
-NEXTAUTH_SECRET="you secret"
+NEXTAUTH_SECRET="your secret"
 ```
 
 ---
