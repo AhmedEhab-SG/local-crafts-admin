@@ -57,6 +57,6 @@ NEXTAUTH_SECRET="you secret"
 
 <!-- Live Link: <a href="">Local Crafts Admin</a> -->
 
-<h1 align="center" >
-<img src="./public/images/rent-home.png" alt="local-carfts">
-</h1>
+<div align="center" >
+<img src="./public/images/common/orignal-local-crafts-admin.png" alt="local-carfts.png">
+</div>
