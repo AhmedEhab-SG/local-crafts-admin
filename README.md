@@ -4,7 +4,7 @@
 
 ### About Project:
 
-#### An application designed to control and monitor local crafts' backend core features, allowing the administrator to approve products or services added by vendors and add new locations or categories.".
+#### An application designed to control and monitor local crafts' backend core features, allowing the administrator to approve products or services added by vendors and add new locations or categories.
 
 ---
 
