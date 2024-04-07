@@ -34,7 +34,7 @@ const DynamicRating: FC<DynamicRatingProps> = ({
   ratingLength = 5,
   onChangeValue,
   value,
-  size,
+  size = "sm",
   gap = "0.5rem",
   min = 0,
   max = 1,

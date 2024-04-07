@@ -7,7 +7,9 @@ const useColorMode = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setCurrentMode(JSON.parse(localStorage.getItem("mode") || "light"));
+    const storedMode = localStorage.getItem("mode");
+    const mode = storedMode ? JSON.parse(storedMode) : "light";
+    setCurrentMode(mode);
     dispatch(setMode(currentMode));
   }, [dispatch, currentMode]);
 
